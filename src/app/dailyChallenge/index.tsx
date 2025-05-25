@@ -35,6 +35,11 @@ export function DailyChallengePage(){
     points: 100
 
   }]
+
+  const totalPoints = challengeData
+    .filter((item) => item.isChecked)
+    .reduce((prevNum, currentItem) => prevNum + currentItem.points, 0 )
+  
   return (
     <MainAppGenericLayout>
       {/* Header */}
@@ -47,7 +52,7 @@ export function DailyChallengePage(){
         {/* App Score */}
         {/* TODO: set score function */}
         <div>
-          <p>Score: xxx</p>
+          <p>Score: {totalPoints}</p>
         </div>
       </div>
 
