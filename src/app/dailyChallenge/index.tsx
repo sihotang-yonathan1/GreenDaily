@@ -15,7 +15,7 @@ function DailyChallengeBox({title, isChecked, points}: DailyChallengeBoxProps){
         type="checkbox" 
         name="check" 
         id="check" 
-        checked={isChecked} 
+        checked={isTempChecked} 
         onChange={() => setTempChecked(() => !isTempChecked)} 
       />
       <label htmlFor="check" className="capitalize">{title}</label>
