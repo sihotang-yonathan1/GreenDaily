@@ -2,6 +2,7 @@ import { app, BrowserWindow, Notification } from 'electron'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import { ipcMain } from 'electron'
 
 const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -63,6 +64,11 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+// Handle IPC messages from reminder page
+ipcMain.on('show-reminder-notification', (event, { title, body }) => {
+  new Notification({ title, body }).show()
 })
 
 function showNotification(){

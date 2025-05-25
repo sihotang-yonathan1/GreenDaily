@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Notification } from "electron";
+import { app, BrowserWindow, ipcMain, Notification } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -36,6 +36,9 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+ipcMain.on("show-reminder-notification", (event, { title, body }) => {
+  new Notification({ title, body }).show();
 });
 function showNotification() {
   return new Notification({ title: "Pengumuman", body: "Ini pengumuman" }).show();
