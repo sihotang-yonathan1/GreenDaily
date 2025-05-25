@@ -11,7 +11,7 @@ export function MainAppGenericLayout({children}: PropsWithChildren){
   )
 }
 
-function DashboardLayout({children}: PropsWithChildren){
+export function DashboardLayout({children}: PropsWithChildren){
   return (
     <div className="flex flex-1/2 w-dvw h-dvh bg-amber-200 py-2 px-4">
       
