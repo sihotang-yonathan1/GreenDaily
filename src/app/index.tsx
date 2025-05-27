@@ -36,7 +36,7 @@ export function DashboardLayout(){
           <div className="flex justify-end gap-x-1">
             <div className="flex">
               {/* FIXME: not implemented yet */}
-              <NavLink to="/" className="border p-2">Kalkulator</NavLink>
+              <NavLink to="calculator" className="border p-2">Kalkulator</NavLink>
             </div>
 
             <div className="flex">
