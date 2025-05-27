@@ -1,6 +1,6 @@
 import { PropsWithChildren} from "react";
-import { DailyChallengePage } from "./dailyChallenge";
 import { ReminderPage } from "./reminder";
+import { NavLink, Outlet } from "react-router";
 
 
 export function MainAppGenericLayout({children}: PropsWithChildren){
@@ -11,7 +11,7 @@ export function MainAppGenericLayout({children}: PropsWithChildren){
   )
 }
 
-function DashboardLayout({children}: PropsWithChildren){
+export function DashboardLayout(){
   return (
     <div className="flex flex-1/2 w-dvw h-dvh bg-amber-200 py-2 px-4">
       
@@ -22,22 +22,26 @@ function DashboardLayout({children}: PropsWithChildren){
           <div className="flex py-2">
             <h3 className="text-2xl font-semibold">GreenDaily</h3>
           </div>
-          {children}
+
+          {/* Child route goes to `Outlet` */}
+          <Outlet />
         </div>
 
         {/* Menu Selector */}
         <div className="flex flex-col gap-y-1 my-2">
           <div className="flex col-start-1 col-end-3 justify-end">
-            <button className="border p-2">Hello1</button> 
+            <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
           </div>
 
           <div className="flex justify-end gap-x-1">
             <div className="flex">
-              <button className="border p-2">Hello2</button>
+              {/* FIXME: not implemented yet */}
+              <NavLink to="/" className="border p-2">Kalkulator</NavLink>
             </div>
 
             <div className="flex">
-              <button className="border p-2">Hello2</button>
+              {/* FIXME: not implemented yet */}
+              <NavLink to="/" className="border p-2">Kalkulator2</NavLink>
             </div>
           </div>
 
@@ -50,12 +54,4 @@ function DashboardLayout({children}: PropsWithChildren){
       </div>
     </div>
   )
-}
-
-export default function DashboardPage(){
-  return (
-    <DashboardLayout>
-      <DailyChallengePage />
-    </DashboardLayout>
-  ) 
 }

@@ -1,8 +1,8 @@
-import DashboardPage from './app/index'
+import { DashboardLayout } from './app/index'
 import './global.css'
 
 function App() {
-  return <DashboardPage />
+  return <DashboardLayout />
 }
 
 export default App
