@@ -6,7 +6,8 @@ import './global.css'
 import { DashboardLayout } from './app/index.tsx';
 import { DailyChallengePage } from './app/dailyChallenge/index.tsx';
 import { ReminderPage } from './app/reminder/index.tsx';
-import { CalculatorByDevice, CalculatorByPrice, CalculatorLayout } from './app/energyCalculator/index.tsx';
+import { CalculatorByDevice, CalculatorByPrice } from './app/energyCalculator/index.tsx';
+import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
