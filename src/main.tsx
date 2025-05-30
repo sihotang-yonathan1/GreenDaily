@@ -6,7 +6,7 @@ import './global.css'
 import { DashboardLayout } from './app/index.tsx';
 import { DailyChallengePage } from './app/dailyChallenge/index.tsx';
 import { ReminderPage } from './app/reminder/index.tsx';
-import CalculatorPage, { CalculatorByPrice, CalculatorLayout } from './app/energyCalculator/index.tsx';
+import { CalculatorByDevice, CalculatorByPrice, CalculatorLayout } from './app/energyCalculator/index.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path='reminder' element={<ReminderPage />} />
           <Route path='calculator' element={<CalculatorLayout/>}>
             <Route index element={<CalculatorByPrice />} />
+            <Route path="byDevice" element={<CalculatorByDevice />} />
           </Route>
         </Route>
         
