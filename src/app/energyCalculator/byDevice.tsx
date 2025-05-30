@@ -1,4 +1,28 @@
-function CalculatorDeviceRow(){
+import { useState } from "react";
+
+type DeviceMapItemData = {
+  name: string;
+  price: number,
+  count: number,
+
+}
+
+const deviceData: DeviceMapItemData[] = [{
+  name: "Perangkat1",
+  price: 50,
+  count: 10,
+}, {
+  name: "Perangkat2",
+  price: 50,
+  count: 10,
+}]
+
+function CalculatorDeviceRow({name, price, count}: DeviceMapItemData){
+  const [tempInput, setTempInput] = useState<DeviceMapItemData>({
+    name: name,
+    count: count,
+    price: price
+  })
   return (
     <div className="flex flex-row w-full gap-x-4 px-1">
       {/* Device name */}
@@ -8,6 +32,8 @@ function CalculatorDeviceRow(){
           type="text" 
           className="border py-2 px-2"
           id="deviceType"
+          value={tempInput.name}
+          onChange={event => setTempInput({...tempInput, name: event.target.value})}
           />
       </div>
 
@@ -19,6 +45,8 @@ function CalculatorDeviceRow(){
           id="deviceNumber" 
           min={0}
           className="border py-2 px-2"
+          value={count}
+          onChange={event => setTempInput({...tempInput, count: Number(event.target.value ?? 0)})}
         />
       </div>
     </div>
@@ -26,13 +54,29 @@ function CalculatorDeviceRow(){
 }
 
 export function CalculatorByDevice(){
+  const [tempData, setTempData] = useState<DeviceMapItemData[]>(deviceData)
+  
+  function handleAddItem(data: DeviceMapItemData){
+    setTempData([...tempData, data])
+  }
+  
   return (
     <div className="flex flex-col h-full gap-y-2 w-full">
-      <CalculatorDeviceRow />
+      {tempData.map((item, index) => (
+        <CalculatorDeviceRow 
+          key={index} 
+          name={item.name}
+          price={item.price}
+          count={item.count}
+        />)
+      )}
 
       {/* Add button */}
       <div className="flex justify-center">
-        <button>Tambah Perangkat</button>
+        <button 
+          onClick={_ => handleAddItem({name: "", price: 0, count: 0})}>
+          Tambah Perangkat
+        </button>
       </div>
 
       {/* Result */}
