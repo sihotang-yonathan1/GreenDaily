@@ -9,9 +9,9 @@ export function CalculatorByPrice(){
   return (
     <div className="flex flex-col h-full justify-center gap-y-8">
       {/* Form input */}
-      <div className="flex flex-row gap-x-3">
+      <div className="flex flex-row gap-x-3 w-full">
         {/* Total kwH */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full ">
           <label htmlFor="kwh" className="font-semibold">Total KWh</label>
           <input 
             type="number" 
@@ -20,12 +20,12 @@ export function CalculatorByPrice(){
             min={0}
             defaultValue={totalKWh ?? ""}
             onChange={(event) => setTotalKWh(Number(event.target.value) ?? 0)}
-            className="border p-2"
+            className="border p-2 md:px-2 md:py-3"
           />
         </div>
 
         {/* Tarif Listrik */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <label htmlFor="price" className="font-semibold">Tarif Listrik</label>
           <input 
             type="number" 
@@ -33,7 +33,7 @@ export function CalculatorByPrice(){
             value={price ?? ""}
             min={0} 
             onChange={(event) => setPrice(Number(event.target.value) ?? 0)}
-            className="border p-2"
+            className="border p-2 md:px-2 md:py-3"
           />
         </div>
       </div>
@@ -47,7 +47,7 @@ export function CalculatorByPrice(){
           id="result" 
           disabled 
           value={result}
-          className="border p-2 disabled:bg-gray-100"
+          className="border p-2 disabled:bg-gray-100 text-center md:px-2 md:py-3"
         />
       </div>
     </div>
