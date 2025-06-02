@@ -45,7 +45,7 @@ function CalculatorDeviceRow({name, price, count}: DeviceMapItemData){
           id="deviceNumber" 
           min={0}
           className="border py-2 px-2"
-          value={count}
+          value={tempInput.count}
           onChange={event => setTempInput({...tempInput, count: Number(event.target.value ?? 0)})}
         />
       </div>
