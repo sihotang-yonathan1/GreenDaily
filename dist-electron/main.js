@@ -1,20 +1,19 @@
-import { app, BrowserWindow, Notification } from "electron";
-import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
+import { app, BrowserWindow, ipcMain, Notification } from "electron";
 import path from "node:path";
-createRequire(import.meta.url);
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname, "..");
-const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+import { fileURLToPath } from "node:url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+process.env.DIST = path.join(__dirname, "../dist");
+process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
 let win;
+const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
-      preload: path.join(__dirname, "preload.mjs")
+      preload: path.join(__dirname, "../dist-electron/preload.mjs"),
+      nodeIntegration: false,
+      contextIsolation: true
     }
   });
   win.webContents.on("did-finish-load", () => {
@@ -23,26 +22,49 @@ function createWindow() {
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
+    win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+  win = null;
 });
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
-function showNotification() {
-  return new Notification({ title: "Pengumuman", body: "Ini pengumuman" }).show();
-}
-app.whenReady().then(createWindow).then(showNotification);
-export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
-};
+app.whenReady().then(() => {
+  createWindow();
+  ipcMain.on("show-reminder-notification", (event, reminder) => {
+    const targetDate = new Date(reminder.dateTime);
+    const now = /* @__PURE__ */ new Date();
+    const delay = targetDate.getTime() - now.getTime();
+    if (delay > 0) {
+      console.log(`Menjadwalkan reminder "${reminder.body}" untuk ${targetDate.toLocaleString()} (dalam ${delay / 1e3} detik)`);
+      setTimeout(() => {
+        new Notification({
+          title: reminder.title,
+          body: reminder.body,
+          silent: false
+        }).show();
+        console.log(`Notifikasi ditampilkan untuk: "${reminder.body}"`);
+      }, delay);
+    } else {
+      console.warn("Mencoba mengatur reminder di masa lalu atau segera:", reminder);
+    }
+  });
+});
+ipcMain.handle("open-win", (_, arg) => {
+  const childWindow = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, "../dist-electron/preload.mjs"),
+      nodeIntegration: false,
+      contextIsolation: true
+    }
+  });
+  if (VITE_DEV_SERVER_URL) {
+    childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`);
+  } else {
+    childWindow.loadFile(path.join(process.env.DIST, "index.html"), { hash: arg });
+  }
+});
