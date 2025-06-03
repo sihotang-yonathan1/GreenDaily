@@ -1,78 +1,83 @@
-import { app, BrowserWindow, Notification } from 'electron'
-import { createRequire } from 'node:module'
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
-import { ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Notification } from 'electron';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const require = createRequire(import.meta.url)
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// The built directory structure
-//
-// ├─┬─┬ dist
-// │ │ └── index.html
-// │ │
-// │ ├─┬ dist-electron
-// │ │ ├── main.js
-// │ │ └── preload.mjs
-// │
-process.env.APP_ROOT = path.join(__dirname, '..')
+process.env.DIST = path.join(__dirname, '../dist');
+process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, '../public');
 
-// 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
-export const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
-export const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist-electron')
-export const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')
-
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST
-
-let win: BrowserWindow | null
+let win: BrowserWindow | null;
+const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL'];
 
 function createWindow() {
   win = new BrowserWindow({
-    icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
+    icon: path.join(process.env.VITE_PUBLIC!, 'electron-vite.svg'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.mjs'),
+      preload: path.join(__dirname, '../dist-electron/preload.mjs'),
+      nodeIntegration: false,
+      contextIsolation: true,
     },
-  })
+  });
 
-  // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
-    win?.webContents.send('main-process-message', (new Date).toLocaleString())
-  })
+    win?.webContents.send('main-process-message', new Date().toLocaleString());
+  });
 
   if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL)
+    win.loadURL(VITE_DEV_SERVER_URL);
   } else {
-    // win.loadFile('dist/index.html')
-    win.loadFile(path.join(RENDERER_DIST, 'index.html'))
+    win.loadFile(path.join(process.env.DIST!, 'index.html'));
   }
 }
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-    win = null
-  }
-})
+  win = null;
+});
 
 app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    createWindow();
   }
-})
+});
 
-// Handle IPC messages from reminder page
-ipcMain.on('show-reminder-notification', (event, { title, body }) => {
-  new Notification({ title, body }).show()
-})
+app.whenReady().then(() => {
+  createWindow();
 
-function showNotification(){
-  return new Notification({title: "Pengumuman", body: "Ini pengumuman"}).show()
-}
+  ipcMain.on('show-reminder-notification', (event, reminder: { id: string; title: string; body: string; dateTime: string }) => {
+    const targetDate = new Date(reminder.dateTime);
+    const now = new Date();
+    const delay = targetDate.getTime() - now.getTime();
 
-app.whenReady().then(createWindow).then(showNotification)
+    if (delay > 0) {
+      console.log(`Menjadwalkan reminder "${reminder.body}" untuk ${targetDate.toLocaleString()} (dalam ${delay / 1000} detik)`);
+      setTimeout(() => {
+        new Notification({
+          title: reminder.title,
+          body: reminder.body,
+          silent: false,
+        }).show();
+        console.log(`Notifikasi ditampilkan untuk: "${reminder.body}"`);
+      }, delay);
+    } else {
+      console.warn('Mencoba mengatur reminder di masa lalu atau segera:', reminder);
+    }
+  });
+});
+
+ipcMain.handle('open-win', (_, arg) => {
+  const childWindow = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, '../dist-electron/preload.mjs'),
+      nodeIntegration: false,
+      contextIsolation: true,
+    },
+  });
+
+  if (VITE_DEV_SERVER_URL) {
+    childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`);
+  } else {
+    childWindow.loadFile(path.join(process.env.DIST!, 'index.html'), { hash: arg });
+  }
+});
