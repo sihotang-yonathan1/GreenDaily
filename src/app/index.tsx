@@ -46,7 +46,7 @@ export function DashboardLayout(){
             <div className="flex">
               {/* FIXME: not implemented yet */}
               <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end">
-                <span className="text-sm">Kalkulator</span>
+                <span className="text-sm">Reminder</span>
               </NavLink>
             </div>
           </div>
