@@ -162,7 +162,7 @@ function ReminderRowBox({body, dateTime}: Omit<ReminderData, "id">){
   })
 
   return (
-    <div>
+    <div className="flex flex-col border py-2 px-1">
       <p>{body} pada {dataLocalDate}</p>
     </div>
   )
@@ -173,7 +173,7 @@ export function ReminderPage({ reminders = [] }: ReminderPageProps){
     <div className="p-4 text-gray-700 h-full">
       <p className="font-semibold mb-2">Reminder Anda:</p>
       
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full gap-y-2">
         {reminders.length > 0 && reminders.map((item) => <ReminderRowBox 
           key={item.id} 
           body={item.body} 
