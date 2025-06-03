@@ -50,7 +50,7 @@ export function DashboardLayout(){
         </div>
       </div>
 
-      <div className="flex flex-col w-[40dvw] p-4 overflow-hidden">
+      <div className="flex flex-col w-[40dvw] p-4 overflow-hidden gap-y-4">
         <ReminderLayout />
         
         <ElectricitySavingTips />
