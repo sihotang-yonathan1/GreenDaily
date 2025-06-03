@@ -25,16 +25,24 @@ export function DashboardLayout(){
 
         <div className="flex flex-col gap-y-1 my-2">
           <div className="flex col-start-1 col-end-3 justify-end">
-            <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
+            <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+              <span className="flex w-full text-xs">DailyChallenge</span>
+            </NavLink>
           </div>
 
           <div className="flex justify-end gap-x-1">
             <div className="flex">
-              <NavLink to="calculator" className="border p-2">Kalkulator</NavLink>
+              {/* FIXME: not implemented yet */}
+              <NavLink to="calculator" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+                <span className="text-sm">Kalkulator</span>
+              </NavLink>
             </div>
 
             <div className="flex">
-              <NavLink to="/" className="border p-2">Kalkulator2</NavLink>
+              {/* FIXME: not implemented yet */}
+              <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end">
+                <span className="text-sm">Reminder</span>
+              </NavLink>
             </div>
           </div>
 
