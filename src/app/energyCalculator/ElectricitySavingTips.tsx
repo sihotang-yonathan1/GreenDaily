@@ -7,7 +7,7 @@ interface ElectricitySavingTipsProps {
   // currentCalculationResult?: number;
 }
 
-export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = (props) => {
+export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = () => {
   // Contoh tips statis
   const tips = [
     "Matikan lampu saat tidak digunakan.",
@@ -19,7 +19,7 @@ export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = (prop
   ];
 
   return (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-sm mt-4">
+    <div className="p-4 bg-gray-50 rounded-lg shadow-sm">
       <h4 className="text-lg font-semibold mb-3 text-gray-800">Tips Pengurangan Biaya Listrik</h4>
       <ul className="list-disc list-inside text-gray-700">
         {tips.map((tip, index) => (
