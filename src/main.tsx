@@ -18,6 +18,7 @@ import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
 import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
 import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>

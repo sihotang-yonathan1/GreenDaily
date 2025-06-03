@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { ReminderLayout } from "./reminder";
 import { NavLink, Outlet } from "react-router";
+import { ElectricitySavingTips } from './energyCalculator/ElectricitySavingTips';
 
 export function MainAppGenericLayout({children}: PropsWithChildren){
   return (
@@ -50,9 +51,11 @@ export function DashboardLayout(){
       </div>
 
       <div className="flex flex-col w-[40dvw] p-4">
-        <ReminderLayout>
-        </ReminderLayout>
+        <ReminderLayout />
         
+        <div className="flex-grow"></div> 
+        
+        <ElectricitySavingTips />
       </div>
     </div>
   )
