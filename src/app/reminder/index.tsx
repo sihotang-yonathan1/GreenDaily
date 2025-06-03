@@ -129,7 +129,7 @@ export function ReminderLayout({children}: PropsWithChildren){
               </div>
               <button 
                 onClick={() => setActiveTab('settings')}
-                className="px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 text-sm"
+                className="px-3 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 text-xs"
               >
                 Atur Reminder
               </button>
