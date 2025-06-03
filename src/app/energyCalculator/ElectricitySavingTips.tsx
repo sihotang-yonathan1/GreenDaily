@@ -15,7 +15,7 @@ export function TipsBoxRow({message}: TipsBoxRowProps){
   return (
     <div className='flex flex-row px-1 border w-full h-12 py-1'>
       {/* TODO: icon */}
-      <div>
+      <div className='flex flex-row items-center'>
         <p className='text-gray-700 text-sm'>{message}</p>
       </div>
     </div>
