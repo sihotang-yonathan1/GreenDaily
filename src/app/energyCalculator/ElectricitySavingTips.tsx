@@ -7,7 +7,22 @@ interface ElectricitySavingTipsProps {
   // currentCalculationResult?: number;
 }
 
-export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = (props) => {
+type TipsBoxRowProps = {
+  message: string;
+}
+
+export function TipsBoxRow({message}: TipsBoxRowProps){
+  return (
+    <div className='flex flex-row px-1 border w-full h-12 py-1'>
+      {/* TODO: icon */}
+      <div className='flex flex-row items-center'>
+        <p className='text-gray-700 text-sm'>{message}</p>
+      </div>
+    </div>
+  )
+}
+
+export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = () => {
   // Contoh tips statis
   const tips = [
     "Matikan lampu saat tidak digunakan.",
@@ -19,13 +34,11 @@ export const ElectricitySavingTips: React.FC<ElectricitySavingTipsProps> = (prop
   ];
 
   return (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-sm mt-4">
+    <div className="p-4 bg-gray-50 rounded-lg shadow-sm">
       <h4 className="text-lg font-semibold mb-3 text-gray-800">Tips Pengurangan Biaya Listrik</h4>
-      <ul className="list-disc list-inside text-gray-700">
-        {tips.map((tip, index) => (
-          <li key={index} className="mb-1">{tip}</li>
-        ))}
-      </ul>
+      <div className='flex flex-col gap-y-1'>
+        {tips.map((item, index) => <TipsBoxRow key={index} message={item}/>)}
+      </div>
       {/* Anda bisa menambahkan logika untuk tips dinamis di sini */}
       {/* {props.currentCalculationResult && props.currentCalculationResult > 100000 && (
         <p className="mt-3 text-sm text-red-600">

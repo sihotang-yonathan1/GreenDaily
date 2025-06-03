@@ -129,7 +129,7 @@ export function ReminderLayout({children}: PropsWithChildren){
               </div>
               <button 
                 onClick={() => setActiveTab('settings')}
-                className="px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 text-sm"
+                className="px-3 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 text-xs"
               >
                 Atur Reminder
               </button>
@@ -151,27 +151,40 @@ interface ReminderPageProps {
   reminders: ReminderData[];
 }
 
+
+function ReminderRowBox({body, dateTime}: Omit<ReminderData, "id">){
+  const dataLocalDate = new Date(dateTime).toLocaleString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+
+  return (
+    <div className="flex flex-col border py-2 px-1">
+      <p>{body} pada {dataLocalDate}</p>
+    </div>
+  )
+}
+
 export function ReminderPage({ reminders = [] }: ReminderPageProps){
   return (
-    <div className="p-4 text-gray-700">
+    <div className="p-4 text-gray-700 h-full">
       <p className="font-semibold mb-2">Reminder Anda:</p>
-      <ul className="list-disc list-inside">
-        {reminders.length > 0 ? (
-          reminders.map(reminder => (
-            <li key={reminder.id}>
-              {reminder.body} pada {new Date(reminder.dateTime).toLocaleString('id-ID', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}
-            </li>
-          ))
-        ) : (
-          <li>Tidak ada reminder yang diatur.</li>
-        )}
-      </ul>
+      
+      <div className="flex flex-col w-full gap-y-2">
+        {reminders.length > 0 && reminders.map((item) => <ReminderRowBox 
+          key={item.id} 
+          body={item.body} 
+          dateTime={item.dateTime} 
+          title={item.title}
+        />)}
+      </div>
+      {reminders.length === 0 && 
+        <div className="flex flex-col justify-center bg-amber-300 h-full items-center">
+          <p className="font-semibold text-lg">Tidak ada Pengingat dibuat</p>
+        </div>}
     </div>
   );
 }
