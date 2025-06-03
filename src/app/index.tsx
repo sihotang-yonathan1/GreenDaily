@@ -31,6 +31,7 @@ export function DashboardLayout(){
         <div className="flex flex-col gap-y-1 my-2">
           <div className="flex col-start-1 col-end-3 justify-end">
             <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
+            <NavLink to="/air-quality" className="border p-2">Cek Kualitas Udara</NavLink> //penambahan link ke halaman cek kualitas udara
           </div>
 
           <div className="flex justify-end gap-x-1">
