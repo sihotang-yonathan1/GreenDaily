@@ -3,9 +3,20 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import './global.css'
+
+// Dashboard
 import { DashboardLayout } from './app/index.tsx';
+
+// DailyChallenge
 import { DailyChallengePage } from './app/dailyChallenge/index.tsx';
+
+// Reminder
 import { ReminderPage } from './app/reminder/index.tsx';
+
+// Calculator
+import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
+import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
+import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -14,7 +25,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route element={<DashboardLayout />} >
           <Route index element={<DailyChallengePage />}/>
           <Route path='reminder' element={<ReminderPage />} />
+          <Route path='calculator' element={<CalculatorLayout/>}>
+            <Route index element={<CalculatorByPrice />} />
+            <Route path="byDevice" element={<CalculatorByDevice />} />
+          </Route>
         </Route>
+        
       </Routes>
     </BrowserRouter>    
   </React.StrictMode>,
