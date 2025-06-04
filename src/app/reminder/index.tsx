@@ -124,7 +124,7 @@ export function ReminderLayout({children}: PropsWithChildren){
         ) : (
           <>
             <div className="flex flex-row gap-x-1 py-2 w-full items-center">
-              <div className="flex border rounded-2xl w-full">
+              <div className="flex invisible border rounded-2xl w-full">
                 <input type="text" className="border-none outline-none px-2 py-2" placeholder="Cari Lokasi"/>
               </div>
               <button 
