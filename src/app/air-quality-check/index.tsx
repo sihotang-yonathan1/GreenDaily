@@ -55,7 +55,7 @@ export const AirQualityCheck: React.FC = () => {
           onChange={(e) => setState(e.target.value)}
         />
         <input
-          className="border p-1"
+          className="border p-1 mr-1"
           placeholder="Negara"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
