@@ -3,7 +3,7 @@ import { useState } from "react";
 // Deklarasi agar TypeScript mengenali window.api
 declare global {
   interface Window {
-    api: {
+    electronAPI: {
       getAirQuality: (
         city: string,
         state: string,
@@ -30,7 +30,7 @@ export const AirQualityCheck: React.FC = () => {
     setLoading(true);
     setResult(null);
     try {
-      const data = await window.api.getAirQuality(city, state, country);
+      const data = await window.electronAPI.getAirQuality(city, state, country); // Ganti di sini
       setResult(data);
     } catch (err) {
       setResult({ status: "fail", error: String(err) });
@@ -72,18 +72,34 @@ export const AirQualityCheck: React.FC = () => {
         <div className="mt-4">
           {result.status === "success" ? (
             <div>
-              <div>
-                <b>Lokasi:</b> {result.location?.name} ({result.location?.lat},{" "}
-                {result.location?.lon})
+              <div className="mb-2">
+                <b>Lokasi:</b> {result.location?.name} ({result.location?.lat}, {result.location?.lon})
               </div>
-              <div>
-                <b>AQI (IQAir):</b> {result.aqi}
+              <div className="mb-2">
+                <b>AQI (IQAir):</b>{" "}
+                <span className={
+                  result.aqi < 50 ? "text-green-600 font-bold" :
+                  result.aqi < 100 ? "text-yellow-600 font-bold" :
+                  result.aqi < 150 ? "text-orange-600 font-bold" :
+                  result.aqi < 200 ? "text-red-600 font-bold" : "text-purple-700 font-bold"
+                }>
+                  {result.aqi}
+                </span>
               </div>
-              <div>
+              <div className="mb-2">
                 <b>Parameter Udara (OpenWeather):</b>
-                <pre className="bg-gray-100 p-2 rounded text-xs overflow-x-auto">
-                  {JSON.stringify(result.openweather, null, 2)}
-                </pre>
+                <table className="mt-2 border bg-gray-50 text-sm rounded">
+                  <tbody>
+                    <tr><td className="border px-2 py-1">CO</td><td className="border px-2 py-1">{result.openweather.list[0].components.co} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">NO</td><td className="border px-2 py-1">{result.openweather.list[0].components.no} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">NO₂</td><td className="border px-2 py-1">{result.openweather.list[0].components.no2} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">O₃</td><td className="border px-2 py-1">{result.openweather.list[0].components.o3} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">SO₂</td><td className="border px-2 py-1">{result.openweather.list[0].components.so2} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">PM2.5</td><td className="border px-2 py-1">{result.openweather.list[0].components.pm2_5} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">PM10</td><td className="border px-2 py-1">{result.openweather.list[0].components.pm10} μg/m³</td></tr>
+                    <tr><td className="border px-2 py-1">NH₃</td><td className="border px-2 py-1">{result.openweather.list[0].components.nh3} μg/m³</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           ) : (
