@@ -25,12 +25,15 @@ export function DashboardLayout(){
         </div>
 
         <div className="flex flex-col gap-y-1 my-2">
-          <div className="flex col-start-1 col-end-3 justify-end">
+          <div className="flex col-start-1 col-end-3 justify-end gap-x-1">
             <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
               <span className="flex w-full text-xs">DailyChallenge</span>
             </NavLink>
-            <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
-            <NavLink to="/air-quality" className="border p-2">Cek Kualitas Udara</NavLink> //penambahan link ke halaman cek kualitas udara
+            {/* <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
+            <NavLink to="/air-quality" className="border p-2">Cek Kualitas Udara</NavLink> //penambahan link ke halaman cek kualitas udara */}
+            <NavLink to="/air-quality" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+              <span className="flex w-full text-xs">Cek Kualitas Udara</span>
+            </NavLink>
           </div>
 
           <div className="flex justify-end gap-x-1">
