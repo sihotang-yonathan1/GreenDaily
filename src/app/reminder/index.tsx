@@ -1,4 +1,7 @@
 import React, { PropsWithChildren, useState } from "react";
+import { DailyTip } from './tips';
+import styles from './style.module.css';
+
 
 interface ReminderData {
   id: string;
@@ -58,22 +61,22 @@ export function ReminderLayout({children}: PropsWithChildren){
   };
 
   return (
-    <div className="flex flex-col bg-white w-full h-full px-1 py-1">
-      <div className="flex flex-col">
-        <div className="flex justify-end gap-x-2">
-          <button onClick={() => setActiveTab('settings')} className="text-gray-600 hover:text-gray-900">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div className={styles.container}>
+      <div className={styles.column}>
+        <div className={styles.headerActions}>
+          <button onClick={() => setActiveTab('settings')} className={styles.settingsButton}>
+            <svg xmlns="http://www.w3.org/2000/svg" className={styles.settingsIcon} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.001 2.001 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.141 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
           </button>
         </div>
 
         {activeTab === 'settings' ? (
-          <div className="mt-4 p-4 bg-gray-50 rounded-md">
-            <h2 className="text-lg font-semibold mb-3">Pengaturan Reminder</h2>
-            <div className="space-y-4">
+          <div className={styles.settingsPanel}>
+            <h2 className={styles.settingsTitle}>Pengaturan Reminder</h2>
+            <div className={styles.formGroup}>
               <div>
-                <label htmlFor="reminderMessage" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="reminderMessage" className={styles.label}>
                   Pesan Reminder:
                 </label>
                 <input
@@ -81,13 +84,13 @@ export function ReminderLayout({children}: PropsWithChildren){
                   id="reminderMessage"
                   value={reminderMessage}
                   onChange={(e) => setReminderMessage(e.target.value)}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                  className={styles.input}
                   placeholder="Contoh: Matikan lampu!"
                 />
               </div>
               
               <div>
-                <label htmlFor="reminderDateTime" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="reminderDateTime" className={styles.label}>
                   Waktu Reminder:
                 </label>
                 <input
@@ -95,27 +98,27 @@ export function ReminderLayout({children}: PropsWithChildren){
                   id="reminderDateTime"
                   value={reminderDateTime}
                   onChange={(e) => setReminderDateTime(e.target.value)}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                  className={styles.input}
                 />
               </div>
               
               <button 
                 onClick={handleSetReminder}
-                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className={styles.submitButton}
                 disabled={!reminderMessage || !reminderDateTime}
               >
                 Atur Reminder
               </button>
             </div>
             {statusMessage && (
-              <p className={`mt-4 text-sm ${statusMessage.startsWith('Error') ? 'text-red-600' : 'text-green-600'}`}>
+              <p className={`${styles.statusMessage} ${statusMessage.startsWith('Error') ? styles.errorMessage : styles.successMessage}`}>
                 {statusMessage}
               </p>
             )}
             <div className="mt-4">
               <button 
                 onClick={() => { setActiveTab('reminder'); setStatusMessage(''); }}
-                className="text-sm text-blue-500 hover:underline"
+                className={styles.backButton}
               >
                 ← Kembali ke Reminder
               </button>
@@ -123,13 +126,13 @@ export function ReminderLayout({children}: PropsWithChildren){
           </div>
         ) : (
           <>
-            <div className="flex flex-row gap-x-1 py-2 w-full items-center">
-              <div className="flex border rounded-2xl w-full">
-                <input type="text" className="border-none outline-none px-2 py-2" placeholder="Cari Lokasi"/>
+            <div className={styles.searchContainer}>
+              <div className={styles.searchInput}>
+                <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
               </div>
               <button 
                 onClick={() => setActiveTab('settings')}
-                className="px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 text-sm"
+                className={styles.setReminderButton}
               >
                 Atur Reminder
               </button>
@@ -140,9 +143,7 @@ export function ReminderLayout({children}: PropsWithChildren){
 
       {activeTab === 'reminder' && <ReminderPage reminders={activeReminders} />}
       
-      <div className="mt-auto p-3 bg-gray-100 rounded-md text-gray-600 text-center">
-        <p>Hello World</p>
-      </div>
+      <DailyTip />
     </div>
   );
 }
@@ -153,9 +154,9 @@ interface ReminderPageProps {
 
 export function ReminderPage({ reminders = [] }: ReminderPageProps){
   return (
-    <div className="p-4 text-gray-700">
-      <p className="font-semibold mb-2">Reminder Anda:</p>
-      <ul className="list-disc list-inside">
+    <div className={styles.reminderList}>
+      <p className={styles.reminderTitle}>Reminder Anda:</p>
+      <ul className={styles.reminderItems}>
         {reminders.length > 0 ? (
           reminders.map(reminder => (
             <li key={reminder.id}>
