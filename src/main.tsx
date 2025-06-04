@@ -16,6 +16,36 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<DailyChallengePage />} />
           <Route path="reminder" element={<ReminderPage />} />
           <Route path="/air-quality" element={<AirQualityCheck />} /> // penambahan route untuk halaman cek kualitas udara
+=======
+import './global.css'
+
+// Dashboard
+import { DashboardLayout } from './app/index.tsx';
+
+// DailyChallenge
+import { DailyChallengePage } from './app/dailyChallenge/index.tsx';
+
+// Reminder
+import { ReminderPage } from './app/reminder/index.tsx';
+
+// Calculator
+import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
+import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
+import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
+
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DashboardLayout />} >
+          <Route index element={<DailyChallengePage />}/>
+          <Route path='reminder' element={<ReminderPage />} />
+          <Route path='calculator' element={<CalculatorLayout/>}>
+            <Route index element={<CalculatorByPrice />} />
+            <Route path="byDevice" element={<CalculatorByDevice />} />
+          </Route>
+>>>>>>> 80c4e649295a403980fec7c2f5a2dc18b68f48bb
         </Route>
       </Routes>
     </BrowserRouter>
