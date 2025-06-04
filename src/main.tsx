@@ -1,6 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
+
 
 import './global.css'
 
@@ -18,6 +19,9 @@ import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
 import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
 import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
 
+// AirQualityCheck
+import { AirQualityCheck } from './app/air-quality-check/index.tsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -30,14 +34,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route index element={<CalculatorByPrice />} />
             <Route path="byDevice" element={<CalculatorByDevice />} />
           </Route>
+          <Route path='air-quality' element={<AirQualityCheck/>} />
         </Route>
-        
       </Routes>
-    </BrowserRouter>    
-  </React.StrictMode>,
-)
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 // Use contextBridge
-window.ipcRenderer.on('main-process-message', (_event, message) => {
-  console.log(message)
-})
+window.ipcRenderer.on("main-process-message", (_event, message) => {
+  console.log(message);
+});
