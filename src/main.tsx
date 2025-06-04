@@ -2,21 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import "./global.css";
-import { DashboardLayout } from "./app/index.tsx";
-import { DailyChallengePage } from "./app/dailyChallenge/index.tsx";
-import { ReminderPage } from "./app/reminder/index.tsx";
-import { AirQualityCheck } from "./app/air-quality-check";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<DashboardLayout />}>
-          <Route index element={<DailyChallengePage />} />
-          <Route path="reminder" element={<ReminderPage />} />
-          <Route path="/air-quality" element={<AirQualityCheck />} /> // penambahan route untuk halaman cek kualitas udara
-=======
 import './global.css'
 
 // Dashboard
@@ -33,6 +19,9 @@ import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
 import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
 import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
 
+// AirQualityCheck
+import { AirQualityCheck } from './app/air-quality-check/index.tsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -45,7 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route index element={<CalculatorByPrice />} />
             <Route path="byDevice" element={<CalculatorByDevice />} />
           </Route>
->>>>>>> 80c4e649295a403980fec7c2f5a2dc18b68f48bb
+          <Route path='air-quality' element={<AirQualityCheck/>} />
         </Route>
       </Routes>
     </BrowserRouter>
