@@ -7,14 +7,6 @@ interface ReminderData {
   dateTime: string;
 }
 
-declare global {
-  interface Window {
-    electronAPI: {
-      sendReminder: (reminder: ReminderData) => void;
-    };
-  }
-}
-
 interface ReminderPageProps {
   reminders: ReminderData[];
 }
