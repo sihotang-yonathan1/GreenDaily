@@ -47,7 +47,7 @@ app.on('activate', () => {
 app.whenReady().then(() => {
   createWindow();
 
-  ipcMain.on('show-reminder-notification', (event, reminder: { id: string; title: string; body: string; dateTime: string }) => {
+  ipcMain.on('show-reminder-notification', (_, reminder: { id: string; title: string; body: string; dateTime: string }) => {
     const targetDate = new Date(reminder.dateTime);
     const now = new Date();
     const delay = targetDate.getTime() - now.getTime();
