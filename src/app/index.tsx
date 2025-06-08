@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { ReminderLayout } from "./reminder";
+import { ReminderLayout } from "./reminder/layout";
 import { NavLink, Outlet } from "react-router";
 import { ElectricitySavingTips } from './energyCalculator/ElectricitySavingTips';
 
