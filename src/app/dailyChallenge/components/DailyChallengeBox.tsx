@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export type DailyChallengeBoxComponentProps = {
   id: number;
@@ -11,10 +11,10 @@ export type DailyChallengeBoxComponentProps = {
 export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: DailyChallengeBoxComponentProps){
   const [isTempChecked, setTempChecked] = useState<boolean>(isChecked)
 
-  // TODO: use proper way to update instead using useEffect
-  useEffect(() => {
-    handleUpdate(id, isTempChecked)
-  }, [isTempChecked, id])
+  function handleLocalUpdate(value: boolean){
+    setTempChecked(value)
+    handleUpdate(id, value)
+  }
 
   return (
     <div className="flex flex-row border p-2 gap-x-2 justify-between">
@@ -24,7 +24,7 @@ export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: 
           name="check" 
           id="check" 
           checked={isTempChecked} 
-          onChange={() => setTempChecked(() => !isTempChecked)} 
+          onChange={() => handleLocalUpdate(!isTempChecked)} 
         />
         <label htmlFor="check" className="capitalize">{title}</label>
       </div>
