@@ -17,7 +17,7 @@ type CalculatorDeviceRowProps = DeviceMapItemData & {
 export function CalculatorDeviceRow({ 
   id, 
   name, 
-  price, // price diterima sebagai prop tapi tidak digunakan untuk input di baris ini secara langsung
+  // price, // price diterima sebagai prop tapi tidak digunakan untuk input di baris ini secara langsung
   count, 
   onDelete 
 }: CalculatorDeviceRowProps) {

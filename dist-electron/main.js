@@ -16853,7 +16853,7 @@ app.on("activate", () => {
 });
 app.whenReady().then(() => {
   createWindow();
-  ipcMain.on("show-reminder-notification", (event, reminder) => {
+  ipcMain.on("show-reminder-notification", (_, reminder) => {
     const targetDate = new Date(reminder.dateTime);
     const now = /* @__PURE__ */ new Date();
     const delay = targetDate.getTime() - now.getTime();
@@ -16888,19 +16888,35 @@ ipcMain.handle("open-win", (_, arg) => {
 });
 ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
   var _a, _b, _c, _d;
+  const openWeatherKey = process.env.OPENWEATHER_API_KEY;
+  const iqairKey = process.env.IQAIR_API_KEY;
+  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
+  const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
+  const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
   try {
-    const openWeatherKey = process.env.OPENWEATHER_API_KEY;
-    const iqairKey = process.env.IQAIR_API_KEY;
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)},${encodeURIComponent(state2)},${encodeURIComponent(country)}&limit=1&appid=${openWeatherKey}`;
-    const geoResp = await axios.get(geoUrl);
+    const geoResp = await axios.get(geoUrl, { params: {
+      q: `${city},${state2},${country}`,
+      limit: 1,
+      appid: openWeatherKey
+    } });
     if (!geoResp.data || geoResp.data.length === 0) {
       return { status: "fail", error: "Lokasi tidak ditemukan" };
     }
     const { lat, lon, name } = geoResp.data[0];
-    const iqairUrl = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${lon}&key=${iqairKey}`;
-    const iqairResp = await axios.get(iqairUrl);
-    const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openWeatherKey}`;
-    const airResp = await axios.get(airUrl);
+    const iqairResp = await axios.get(iqairUrl, {
+      params: {
+        lat,
+        lon,
+        key: iqairKey
+      }
+    });
+    const airResp = await axios.get(airUrl, {
+      params: {
+        lat,
+        lon,
+        appid: openWeatherKey
+      }
+    });
     return {
       status: "success",
       location: { lat, lon, name },

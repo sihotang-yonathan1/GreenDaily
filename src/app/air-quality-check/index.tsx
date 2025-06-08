@@ -1,29 +1,38 @@
 import { useState } from "react";
 
-// Deklarasi agar TypeScript mengenali window.api
-declare global {
-  interface Window {
-    electronAPI: {
-      getAirQuality: (
-        city: string,
-        state: string,
-        country: string
-      ) => Promise<{
-        status: string;
-        location?: { lat: number; lon: number; name: string };
-        aqi?: number;
-        openweather?: any;
-        error?: string;
-      }>;
-    };
-  }
+type AirQualityAPISuccessResult = {
+  status: "success",
+  location: { 
+    lat: number, 
+    lon: number, 
+    name: string 
+  },
+  aqi: number | null,
+  openweather: { list: {
+    components: {
+    'co': number
+    'no': number
+    'no2': number
+    'o3': number
+    'so2': number
+    'pm2_5': number
+    'pm10': number
+    'nh3': number
+  }}[]},
+};
+
+type AirQualityAPIFailedResult = {
+  status: "fail",
+  error: string
 }
+
+type AirQualityAPIResult = AirQualityAPISuccessResult | AirQualityAPIFailedResult
 
 export const AirQualityCheck: React.FC = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<AirQualityAPIResult | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleCheck = async () => {
@@ -96,14 +105,17 @@ export const AirQualityCheck: React.FC = () => {
               </div>
               <div className="mb-2">
                 <b>AQI (IQAir):</b>{" "}
-                <span className={
-                  result.aqi < 50 ? "text-green-600 font-bold" :
-                  result.aqi < 100 ? "text-yellow-600 font-bold" :
-                  result.aqi < 150 ? "text-orange-600 font-bold" :
-                  result.aqi < 200 ? "text-red-600 font-bold" : "text-purple-700 font-bold"
-                }>
-                  {result.aqi}
-                </span>
+                {
+                  result.aqi !== null &&
+                  <span className={
+                    result.aqi < 50 ? "text-green-600 font-bold" :
+                    result.aqi < 100 ? "text-yellow-600 font-bold" :
+                    result.aqi < 150 ? "text-orange-600 font-bold" :
+                    result.aqi < 200 ? "text-red-600 font-bold" : "text-purple-700 font-bold"
+                  }>
+                    {result.aqi}
+                  </span>
+                }
               </div>
               <div className="mb-2">
                 <b>Parameter Udara (OpenWeather):</b>
