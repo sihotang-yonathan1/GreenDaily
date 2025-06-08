@@ -16,8 +16,8 @@ import { ReminderPage } from './app/reminder/index.tsx';
 
 // Calculator
 import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
-import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
-import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
+import { CalculatorByPrice } from './app/energyCalculator/tabs/byPrice.tsx';
+import { CalculatorByDevice } from './app/energyCalculator/tabs/byDevice.tsx';
 
 // AirQualityCheck
 import { AirQualityCheck } from './app/air-quality-check/index.tsx';

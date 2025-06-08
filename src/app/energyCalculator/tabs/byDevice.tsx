@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CalculatorDeviceRow, type DeviceMapItemData } from './CalculatorDeviceRow'; // Pastikan path ini benar
+import { CalculatorDeviceRow, type DeviceMapItemData } from '../components/CalculatorDeviceRow'; // Pastikan path ini benar
 
 // Data awal dengan ID unik
 const initialDeviceData: DeviceMapItemData[] = [{
