@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MainAppGenericLayout } from "../index";
+import { DailyChallengeBox } from "./components/DailyChallengeBox";
 
 type DailyChallengeBoxProps = {
   id: number;
@@ -8,41 +9,7 @@ type DailyChallengeBoxProps = {
   points: number;
 }
 
-type DailyChallengeBoxComponentProps = {
-  id: number;
-  title: string;
-  isChecked: boolean;
-  points: number;
-  handleUpdate: (id: number, isChecked: boolean) => void;
-}
 
-function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: DailyChallengeBoxComponentProps){
-  const [isTempChecked, setTempChecked] = useState<boolean>(isChecked)
-
-  // TODO: use proper way to update instead using useEffect
-  useEffect(() => {
-    handleUpdate(id, isTempChecked)
-  }, [isTempChecked])
-
-  return (
-    <div className="flex flex-row border p-2 gap-x-2 justify-between">
-      <div className="flex flex-row items-center gap-x-2">
-        <input 
-          type="checkbox" 
-          name="check" 
-          id="check" 
-          checked={isTempChecked} 
-          onChange={() => setTempChecked(() => !isTempChecked)} 
-        />
-        <label htmlFor="check" className="capitalize">{title}</label>
-      </div>
-
-      <div className="flex flex-row justify-end text-sm">
-        <p>Points: {points}</p>
-      </div>
-    </div>
-  )
-}
 
 export function DailyChallengePage(){
   const challengeData: DailyChallengeBoxProps[] =[{
