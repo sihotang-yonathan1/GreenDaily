@@ -14,7 +14,7 @@ export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: 
   // TODO: use proper way to update instead using useEffect
   useEffect(() => {
     handleUpdate(id, isTempChecked)
-  }, [isTempChecked])
+  }, [isTempChecked, id])
 
   return (
     <div className="flex flex-row border p-2 gap-x-2 justify-between">
