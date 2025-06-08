@@ -90,8 +90,14 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
     const iqairKey = process.env.IQAIR_API_KEY;
 
     // 1. Dapatkan koordinat kota dari OpenWeather Geocoding API
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)},${encodeURIComponent(state)},${encodeURIComponent(country)}&limit=1&appid=${openWeatherKey}`;
-    const geoResp = await axios.get(geoUrl);
+    // const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)},${encodeURIComponent(state)},${encodeURIComponent(country)}&limit=1&appid=${openWeatherKey}`;
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
+    const geoResp = await axios.get(geoUrl, {params: {
+      q: `${city},${state},${country}`,
+      limit: 1,
+      appid: openWeatherKey
+    }});
+
     if (!geoResp.data || geoResp.data.length === 0) {
       return { status: "fail", error: "Lokasi tidak ditemukan" };
     }

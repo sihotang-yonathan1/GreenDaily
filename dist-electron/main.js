@@ -16891,8 +16891,12 @@ ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
   try {
     const openWeatherKey = process.env.OPENWEATHER_API_KEY;
     const iqairKey = process.env.IQAIR_API_KEY;
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)},${encodeURIComponent(state2)},${encodeURIComponent(country)}&limit=1&appid=${openWeatherKey}`;
-    const geoResp = await axios.get(geoUrl);
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
+    const geoResp = await axios.get(geoUrl, { params: {
+      q: `${city},${state2},${country}`,
+      limit: 1,
+      appid: openWeatherKey
+    } });
     if (!geoResp.data || geoResp.data.length === 0) {
       return { status: "fail", error: "Lokasi tidak ditemukan" };
     }
