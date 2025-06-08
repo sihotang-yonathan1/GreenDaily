@@ -4,7 +4,7 @@ import { useState } from "react";
 export type DeviceMapItemData = {
   id: string;
   name: string;
-  // price: number; // Meskipun tidak digunakan di baris ini, ini bagian dari data perangkat
+  price: number; // Meskipun tidak digunakan di baris ini, ini bagian dari data perangkat
   count: number;
 };
 
