@@ -116,7 +116,6 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
     });
 
     // 3. Dapatkan parameter udara dari OpenWeather
-    
     const airResp = await axios.get(airUrl, {
       params: {
         lat: lat,
@@ -131,7 +130,7 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
       aqi: iqairResp.data?.data?.current?.pollution?.aqius ?? null,
       openweather: airResp.data,
     };
-  } catch (error: any) {
+  } catch (error) {
     return { status: "fail", error: error.message };
   }
 });

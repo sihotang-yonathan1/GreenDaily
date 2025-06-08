@@ -16853,7 +16853,7 @@ app.on("activate", () => {
 });
 app.whenReady().then(() => {
   createWindow();
-  ipcMain.on("show-reminder-notification", (event, reminder) => {
+  ipcMain.on("show-reminder-notification", (_, reminder) => {
     const targetDate = new Date(reminder.dateTime);
     const now = /* @__PURE__ */ new Date();
     const delay = targetDate.getTime() - now.getTime();
