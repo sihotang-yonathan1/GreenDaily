@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route element={<DashboardLayout />} >
           <Route index element={<DailyChallengePage />}/>
-          <Route path='reminder' element={<ReminderPage />} />
+          <Route path='reminder' element={<ReminderPage reminders={[]}/>} />
           <Route path='calculator' element={<CalculatorLayout/>}>
             <Route index element={<CalculatorByPrice />} />
             <Route path="byDevice" element={<CalculatorByDevice />} />
