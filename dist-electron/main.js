@@ -16901,10 +16901,22 @@ ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
       return { status: "fail", error: "Lokasi tidak ditemukan" };
     }
     const { lat, lon, name } = geoResp.data[0];
-    const iqairUrl = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${lon}&key=${iqairKey}`;
-    const iqairResp = await axios.get(iqairUrl);
-    const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${openWeatherKey}`;
-    const airResp = await axios.get(airUrl);
+    const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
+    const iqairResp = await axios.get(iqairUrl, {
+      params: {
+        lat,
+        lon,
+        key: iqairKey
+      }
+    });
+    const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
+    const airResp = await axios.get(airUrl, {
+      params: {
+        lat,
+        lon,
+        appid: openWeatherKey
+      }
+    });
     return {
       status: "success",
       location: { lat, lon, name },
