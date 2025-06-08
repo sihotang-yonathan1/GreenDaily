@@ -86,12 +86,15 @@ ipcMain.handle('open-win', (_, arg) => {
 
 ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
   // TODO: add response data type
-  try {
-    const openWeatherKey = process.env.OPENWEATHER_API_KEY;
-    const iqairKey = process.env.IQAIR_API_KEY;
+  const openWeatherKey = process.env.OPENWEATHER_API_KEY;
+  const iqairKey = process.env.IQAIR_API_KEY;
+  
+  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
+  const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
+  const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
 
+  try {
     // 1. Dapatkan koordinat kota dari OpenWeather Geocoding API
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
     const geoResp = await axios.get(geoUrl, {params: {
       q: `${city},${state},${country}`,
       limit: 1,
@@ -104,7 +107,6 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
     const { lat, lon, name } = geoResp.data[0];
 
     // 2. Dapatkan AQI dari IQAir
-    const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
     const iqairResp = await axios.get(iqairUrl, {
       params: {
         lat: lat,
@@ -114,7 +116,7 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
     });
 
     // 3. Dapatkan parameter udara dari OpenWeather
-    const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
+    
     const airResp = await axios.get(airUrl, {
       params: {
         lat: lat,

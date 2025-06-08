@@ -16888,10 +16888,12 @@ ipcMain.handle("open-win", (_, arg) => {
 });
 ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
   var _a, _b, _c, _d;
+  const openWeatherKey = process.env.OPENWEATHER_API_KEY;
+  const iqairKey = process.env.IQAIR_API_KEY;
+  const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
+  const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
+  const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
   try {
-    const openWeatherKey = process.env.OPENWEATHER_API_KEY;
-    const iqairKey = process.env.IQAIR_API_KEY;
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct`;
     const geoResp = await axios.get(geoUrl, { params: {
       q: `${city},${state2},${country}`,
       limit: 1,
@@ -16901,7 +16903,6 @@ ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
       return { status: "fail", error: "Lokasi tidak ditemukan" };
     }
     const { lat, lon, name } = geoResp.data[0];
-    const iqairUrl = `https://api.airvisual.com/v2/nearest_city`;
     const iqairResp = await axios.get(iqairUrl, {
       params: {
         lat,
@@ -16909,7 +16910,6 @@ ipcMain.handle("get-air-quality", async (_event, city, state2, country) => {
         key: iqairKey
       }
     });
-    const airUrl = `https://api.openweathermap.org/data/2.5/air_pollution`;
     const airResp = await axios.get(airUrl, {
       params: {
         lat,
