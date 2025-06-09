@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import styles from './style.module.css';
 
 const environmentalTips = [
   "Turn off lights when leaving a room to save energy",
