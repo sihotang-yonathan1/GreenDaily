@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import { ReminderLayout } from "./reminder/layout";
 import { NavLink, Outlet } from "react-router";
-import { ElectricitySavingTips } from './energyCalculator/ElectricitySavingTips';
 import { DailyTip } from "./reminder/tips";
 
 export function MainAppGenericLayout({children}: PropsWithChildren){
