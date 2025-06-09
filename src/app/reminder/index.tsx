@@ -10,15 +10,7 @@ interface ReminderData {
   dateTime: string;
 }
 
-declare global {
-  interface Window {
-    electronAPI: {
-      sendReminder: (reminder: ReminderData) => void;
-    };
-  }
-}
-
-export function ReminderLayout({children}: PropsWithChildren){
+export function ReminderLayout(){
   const [activeTab, setActiveTab] = useState<'reminder' | 'settings'>('reminder');
   const [reminderMessage, setReminderMessage] = useState<string>('');
   const [reminderDateTime, setReminderDateTime] = useState<string>('');
