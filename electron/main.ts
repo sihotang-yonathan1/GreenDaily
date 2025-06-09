@@ -131,6 +131,9 @@ ipcMain.handle('get-air-quality', async (_event, city, state, country) => {
       openweather: airResp.data,
     };
   } catch (error) {
-    return { status: "fail", error: error.message };
+    if (axios.isAxiosError(error)){
+      return { status: "fail", error: error.message };
+    }
+    return { status: "fail", error: "Unknown Error (not from axios" };
   }
 });
