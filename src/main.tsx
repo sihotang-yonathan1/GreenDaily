@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { HashRouter, Route, Routes } from "react-router";
 
 
 import './global.css'
@@ -25,7 +25,7 @@ import { AirQualityCheck } from './app/air-quality-check/index.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<DashboardLayout />} >
           <Route index element={<DailyChallengePage />}/>
@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path='air-quality' element={<AirQualityCheck/>} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 
