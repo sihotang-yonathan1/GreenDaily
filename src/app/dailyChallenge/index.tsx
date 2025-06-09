@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MainAppGenericLayout } from "../index";
 import { DailyChallengeBox } from "./components/DailyChallengeBox";
 
-type DailyChallengeBoxProps = {
+interface DailyChallengeBoxProps {
   id: number;
   title: string;
   isChecked: boolean;
@@ -10,21 +10,35 @@ type DailyChallengeBoxProps = {
 }
 
 
+class DailyChallengeItem implements DailyChallengeBoxProps {
+  // property
+  id: number;
+  title: string;
+  isChecked: boolean;
+  points: number;
+
+  constructor (id: number, title: string, isChecked: boolean, points: number){
+    this.id = id;
+    this.title = title;
+    this.isChecked = isChecked;
+    this.points = points;
+  }
+
+  // methods
+  showPoints(){
+    console.log(this.points)
+  }
+}
+
 
 export function DailyChallengePage(){
-  const challengeData: DailyChallengeBoxProps[] =[{
-    id: 1,
-    title: "Hello World",
-    isChecked: true,
-    points: 100
-
-  }, { 
-    id: 2,
-    title: "Hello World",
-    isChecked: true,
-    points: 100
-
-  }]
+  // Object
+  const firstChallenge = new DailyChallengeItem(1, "hello world", true, 100);
+  
+  const challengeData = [
+    firstChallenge,
+    new DailyChallengeItem(2, "hello world", true, 100)
+  ]
 
   const [tempData, setTempData] = useState<DailyChallengeBoxProps[]>(challengeData)
 
