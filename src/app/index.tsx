@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
-import { ReminderLayout } from "./reminder";
+import { ReminderLayout } from "./reminder/layout";
 import { NavLink, Outlet } from "react-router";
+import { ElectricitySavingTips } from './energyCalculator/ElectricitySavingTips';
 
 export function MainAppGenericLayout({children}: PropsWithChildren){
   return (
@@ -23,28 +24,41 @@ export function DashboardLayout(){
         <Outlet />
       </div>
 
-      <div className="flex flex-col gap-y-1 my-2">
-        <div className="flex col-start-1 col-end-3 justify-end">
-        <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
-        </div>
+        <div className="flex flex-col gap-y-1 my-2">
+          <div className="flex col-start-1 col-end-3 justify-end gap-x-1">
+            <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+              <span className="flex w-full text-xs">DailyChallenge</span>
+            </NavLink>
+            {/* <NavLink to="/" className="border p-2">DailyChallenge</NavLink>
+            <NavLink to="/air-quality" className="border p-2">Cek Kualitas Udara</NavLink> //penambahan link ke halaman cek kualitas udara */}
+            <NavLink to="/air-quality" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+              <span className="flex w-full text-xs">Cek Kualitas Udara</span>
+            </NavLink>
+          </div>
 
-        <div className="flex justify-end gap-x-1">
-        <div className="flex">
-          <NavLink to="calculator" className="border p-2">Kalkulator</NavLink>
-        </div>
+          <div className="flex justify-end gap-x-1">
+            <div className="flex">
+              {/* FIXME: not implemented yet */}
+              <NavLink to="calculator" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end overflow-hidden">
+                <span className="text-sm">Kalkulator</span>
+              </NavLink>
+            </div>
 
-        <div className="flex">
-          <NavLink to="/" className="border p-2">Kalkulator2</NavLink>
-        </div>
-        </div>
+            <div className="flex">
+              {/* FIXME: not implemented yet */}
+              <NavLink to="/" className="flex flex-col border p-2 w-24 h-14 text-wrap justify-end">
+                <span className="text-sm">Reminder</span>
+              </NavLink>
+            </div>
+          </div>
 
       </div>
       </div>
 
-      <div className="flex flex-col w-[40dvw] p-4">
-      <ReminderLayout>
-      </ReminderLayout>
-      
+      <div className="flex flex-col w-[40dvw] p-4 overflow-hidden gap-y-4">
+        <ReminderLayout />
+        
+        <ElectricitySavingTips />
       </div>
     </div>
   )
