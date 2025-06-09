@@ -24,7 +24,7 @@ type CalculatorDeviceRowProps = DeviceMapItemData & {
 export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate }: CalculatorDeviceRowProps) {
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
-  const [_, setDevicePrice] = useState<number>(price);
+  const [,setDevicePrice] = useState<number>(price);
 
   // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
   useEffect(() => {
