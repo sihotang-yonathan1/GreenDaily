@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { ReminderLayout } from "./reminder/layout";
 import { NavLink, Outlet } from "react-router";
-import { ElectricitySavingTips } from './energyCalculator/ElectricitySavingTips';
+import { DailyTip } from "./reminder/tips";
 
 export function MainAppGenericLayout({children}: PropsWithChildren){
   return (
@@ -13,16 +13,16 @@ export function MainAppGenericLayout({children}: PropsWithChildren){
 
 export function DashboardLayout(){
   return (
-    <div className="flex w-dvw h-dvh bg-amber-200 py-2 px-4">
+    <div className="flex w-dvw h-dvh bg-[#90C67C] py-2 px-4">
       
       <div className="flex flex-col w-[60dvw]">
-        <div className="flex flex-col h-[85dvh] bg-blue-50 p-1">
-          <div className="flex py-2">
-            <h3 className="text-2xl font-semibold">GreenDaily</h3>
-          </div>
-
-          <Outlet />
+      <div className="flex flex-col h-[85dvh] bg-blue-50 p-1">
+        <div className="flex py-2">
+        <h3 className="text-2xl font-semibold">GreenDaily</h3>
         </div>
+
+        <Outlet />
+      </div>
 
         <div className="flex flex-col gap-y-1 my-2">
           <div className="flex col-start-1 col-end-3 justify-end gap-x-1">
@@ -52,13 +52,13 @@ export function DashboardLayout(){
             </div>
           </div>
 
-        </div>
+      </div>
       </div>
 
       <div className="flex flex-col w-[40dvw] p-4 overflow-hidden gap-y-4">
         <ReminderLayout />
         
-        <ElectricitySavingTips />
+        <DailyTip />
       </div>
     </div>
   )
