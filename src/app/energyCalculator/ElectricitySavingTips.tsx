@@ -8,18 +8,22 @@ interface ElectricitySavingTipsProps {
 }
 
 interface TipsBoxRowProps {
-  message: string;
+  _message: string;
 }
 
 class TipsClass implements TipsBoxRowProps {
-  message: string;
+  _message: string;
 
   constructor (message: string){
-    this.message = message;
+    this._message = message;
   }
 
   showMessage(){
-    console.log(this.message)
+    console.log(this._message)
+  }
+
+  getMessage(){
+    return this._message
   }
 }
 
@@ -28,7 +32,7 @@ export function TipsBoxRow({item}: {item: TipsClass}){
     <div className='flex flex-row px-1 border w-full h-12 py-1'>
       {/* TODO: icon */}
       <div className='flex flex-row items-center'>
-        <p className='text-gray-700 text-sm'>{item.message}</p>
+        <p className='text-gray-700 text-sm'>{item.getMessage()}</p>
       </div>
     </div>
   )
