@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import { DailyTip } from './tips';
 import styles from './style.module.css';
 
