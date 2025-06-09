@@ -33,7 +33,7 @@ class DailyChallengeItem implements DailyChallengeBoxProps {
 
 export function DailyChallengePage(){
   // Object
-  let firstChallenge = new DailyChallengeItem(1, "hello world", true, 100);
+  const firstChallenge = new DailyChallengeItem(1, "hello world", true, 100);
   
   const challengeData = [
     firstChallenge,
