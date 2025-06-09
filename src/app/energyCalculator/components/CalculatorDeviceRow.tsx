@@ -1,52 +1,83 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// Tipe ini bisa juga diimpor dari berkas tipe global jika Anda punya
+// Tipe untuk perangkat
 export type DeviceMapItemData = {
   id: string;
   name: string;
-  price: number; // Meskipun tidak digunakan di baris ini, ini bagian dari data perangkat
+  price: number;
   count: number;
 };
 
-// Definisikan tipe props untuk CalculatorDeviceRow
-type CalculatorDeviceRowProps = DeviceMapItemData & {
-  onDelete: (id: string) => void;
-  // Nantinya bisa ditambahkan: onUpdate: (id: string, updatedData: Partial<DeviceMapItemData>) => void;
+// Data mapping perangkat yang tersedia
+const deviceMapping: Record<string, { price: number; name: string }> = {
+  kulkas: { price: 30, name: 'Kulkas' },
+  mesinCuci: { price: 20, name: 'Mesin Cuci' },
+  AC: { price: 50, name: 'AC' },
+  televisi: { price: 40, name: 'Televisi' },
 };
 
-export function CalculatorDeviceRow({ 
-  id, 
-  name, 
-  // price, // price diterima sebagai prop tapi tidak digunakan untuk input di baris ini secara langsung
-  count, 
-  onDelete 
-}: CalculatorDeviceRowProps) {
-  // State lokal untuk input di baris ini
-  // Jika Anda ingin perubahan di sini langsung update ke parent (CalculatorByDevice),
-  // Anda perlu mengangkat state ini ke parent atau menggunakan prop onUpdate.
-  // Untuk sekarang, kita biarkan state ini lokal untuk input.
+type CalculatorDeviceRowProps = DeviceMapItemData & {
+  onDelete: (id: string) => void;
+  onUpdate: (id: string, field: keyof DeviceMapItemData, value: number) => void;
+};
+
+export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate }: CalculatorDeviceRowProps) {
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
+  const [_, setDevicePrice] = useState<number>(price);
+
+  // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
+  useEffect(() => {
+    const selectedDevice = deviceMapping[deviceName.toLowerCase()]; // Mencocokkan nama perangkat dengan mapping
+    if (selectedDevice) {
+      setDevicePrice(selectedDevice.price);
+    }
+  }, [deviceName]);
+
+  // Handle perubahan jumlah perangkat
+  const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCount = Math.max(0, Number(event.target.value)); // Menghindari nilai negatif
+    setDeviceCount(newCount);
+    onUpdate(id, "count", newCount);
+  };
+
+  // Handle perubahan perangkat yang dipilih dari select
+  const handleDeviceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedName = event.target.value;
+    setDeviceName(selectedName);
+    const selectedDevice = deviceMapping[selectedName.toLowerCase()];
+    if (selectedDevice) {
+      setDevicePrice(selectedDevice.price); // Update harga perangkat
+      onUpdate(id, "price", selectedDevice.price); // Update harga di parent
+    }
+  };
 
   return (
-    <div className="flex flex-row w-full gap-x-4 px-1 items-center mb-2"> {/* Tambah margin-bottom */}
-      {/* Input Nama Perangkat */}
-      <div className="flex flex-col flex-grow gap-y-1"> {/* flex-grow agar mengambil sisa ruang */}
-        <label htmlFor={`deviceType-${id}`} className="font-semibold text-sm"> {/* Kecilkan font label */}
+    <div className="flex flex-row w-full gap-x-4 px-1 items-center mb-2">
+      {/* Input Pilih Perangkat (Select) */}
+      <div className="flex flex-col flex-grow gap-y-1">
+        <label htmlFor={`deviceType-${id}`} className="font-semibold text-sm">
           Perangkat
         </label>
-        <input
-          type="text"
-          className="border py-2 px-2 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        <select
           id={`deviceType-${id}`}
           value={deviceName}
-          onChange={(event) => setDeviceName(event.target.value)}
-          placeholder="Nama Perangkat"
-        />
+          onChange={handleDeviceChange}
+          className="border py-2 px-2 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        >
+          {Object.keys(deviceMapping).map((deviceKey) => {
+            const device = deviceMapping[deviceKey];
+            return (
+              <option key={deviceKey} value={deviceKey}>
+                {device.name}
+              </option>
+            );
+          })}
+        </select>
       </div>
 
-      {/* Input Jumlah */}
-      <div className="flex flex-col w-1/4 gap-y-1"> {/* Atur lebar spesifik */}
+      {/* Input Jumlah Perangkat */}
+      <div className="flex flex-col w-1/4 gap-y-1">
         <label htmlFor={`deviceNumber-${id}`} className="font-semibold text-sm">
           Jumlah
         </label>
@@ -56,17 +87,15 @@ export function CalculatorDeviceRow({
           min={0}
           className="border py-2 px-2 rounded-md focus:ring-blue-500 focus:border-blue-500"
           value={deviceCount}
-          onChange={(event) => setDeviceCount(Number(event.target.value ?? 0))}
-          placeholder="0"
+          onChange={handleCountChange}
         />
       </div>
 
       {/* Tombol Hapus */}
-      <div className="flex items-end h-full pt-5"> {/* Sesuaikan pt agar tombol sejajar dengan input setelah label */}
+      <div className="flex items-end h-full pt-5">
         <button
           onClick={() => onDelete(id)}
           className="py-2 px-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-          aria-label={`Hapus perangkat ${deviceName}`}
         >
           X
         </button>
