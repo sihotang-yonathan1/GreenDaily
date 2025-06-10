@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ReminderPage } from "./index.tsx"; // Ensure this import is correct
 import styles from './style.module.css';
 
@@ -7,14 +7,6 @@ interface ReminderData {
   title: string;
   body: string;
   dateTime: string;
-}
-
-declare global {
-  interface Window {
-    electronAPI: {
-      sendReminder: (reminder: ReminderData) => void;
-    };
-  }
 }
 
 export function ReminderLayout(){
