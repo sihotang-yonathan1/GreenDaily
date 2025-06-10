@@ -3,6 +3,8 @@ import { ReminderLayout } from "./reminder/layout";
 import { NavLink, Outlet } from "react-router";
 import { DailyTip } from "./reminder/tips";
 
+import GreenDailyIcon from "/green-daily-icon.png";
+
 export function MainAppGenericLayout({children}: PropsWithChildren){
   return (
     <div className="border bg-white w-full h-full p-2">
@@ -17,7 +19,8 @@ export function DashboardLayout() {
       {/* Main Content Section (60% of the screen width) */}
       <div className="flex flex-col w-full md:w-[60vw]">
         <div className="flex flex-col h-[85vh] bg-blue-50 p-1 overflow-y-auto">
-          <div className="flex py-2">
+        <div className="flex py-2 items-center">
+        <img src={GreenDailyIcon} alt="logo" width={40} height={40}/>
             <h3 className="text-2xl font-semibold">GreenDaily</h3>
           </div>
 
