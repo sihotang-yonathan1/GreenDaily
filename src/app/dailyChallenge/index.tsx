@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { MainAppGenericLayout } from "../index";
 import { DailyChallengeBox } from "./components/DailyChallengeBox";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 interface DailyChallengeBoxProps {
   id: number;
@@ -65,6 +67,7 @@ export function DailyChallengePage() {
 
 
   const [tempData, setTempData] = useState<DailyChallengeBoxProps[]>([]);
+  const [progress, setProgress] = useState(0)
 
   // Fungsi untuk memuat tantangan untuk hari ini
   function loadDailyChallenges() {
@@ -96,9 +99,18 @@ export function DailyChallengePage() {
     loadDailyChallenges();
   }, []);
 
+  
+  
+  useEffect(() => {
+    const totalItemChecked = tempData.filter((item) => item.isChecked).length
+    setProgress((totalItemChecked / 4) * 100)
+  }, [tempData])
+  
   const totalPoints = tempData
     .filter((item) => item.isChecked)
     .reduce((prevNum, currentItem) => prevNum + currentItem.points, 0);
+  
+  
 
   return (
     <MainAppGenericLayout>
@@ -113,6 +125,24 @@ export function DailyChallengePage() {
         <div>
           <p>Score: {totalPoints}</p>
         </div>
+      </div>
+
+      <div>
+        <Progress 
+          value={progress} 
+          className={cn({
+            "bg-gray-500": progress >= 0 && progress <= 40,
+            "bg-yellow-800": progress > 40 && progress <= 60,
+            "bg-lime-800": progress > 60 && progress < 80,
+            "bg-green-800": progress >= 80,
+          })}
+          indicatorClassName={cn({
+            "bg-red-300": progress >= 0 && progress <= 40,
+            "bg-yellow-300": progress > 40 && progress <= 60,
+            "bg-lime-300": progress > 60 && progress < 80,
+            "bg-green-300": progress >= 80,
+          })}
+        />
       </div>
 
       {/* Challenge items */}
