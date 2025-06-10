@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Tipe untuk perangkat
 export type DeviceMapItemData = {
@@ -25,16 +25,16 @@ export function CalculatorDeviceRow({ id, name, count, price, onDelete, onUpdate
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
   // Code got comment due tnfinite render
-  const [currentDevicePrice, ] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
+  const [currentDevicePrice, setCurrentDevicePrice ] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
 
   // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
-  // useEffect(() => {
-  //   const selectedDevice = deviceMapping[deviceName.toLowerCase()]; // Mencocokkan nama perangkat dengan mapping
-  //   if (selectedDevice) {
-  //     setCurrentDevicePrice(selectedDevice.price); // Update state harga lokal
-  //     onUpdate(id, "price", selectedDevice.price); // Juga update harga di parent
-  //   }
-  // }, [deviceName, id, onUpdate]); // Tambahkan id dan onUpdate ke dependency array
+  useEffect(() => {
+    const selectedDevice = deviceMapping[deviceName.toLowerCase()]; // Mencocokkan nama perangkat dengan mapping
+    if (selectedDevice) {
+      setCurrentDevicePrice(selectedDevice.price); // Update state harga lokal
+      onUpdate(id, "price", selectedDevice.price); // Juga update harga di parent
+    }
+  }, [deviceName, id]); // Tambahkan id dan onUpdate ke dependency array
 
   // Effect untuk memastikan state harga lokal sinkron dengan prop price dari parent
   // useEffect(() => {
