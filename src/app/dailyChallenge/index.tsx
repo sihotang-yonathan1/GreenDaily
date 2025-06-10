@@ -81,8 +81,8 @@ export function DailyChallengePage() {
       // Jika belum, acak data dan pilih tantangan untuk hari ini
       const shuffledData = shuffleArray(challengeData);
 
-      // Tentukan berapa banyak tantangan yang akan ditampilkan (misalnya 3)
-      const dailyChallenges = shuffledData.slice(0, 3);
+      // Tentukan berapa banyak tantangan yang akan ditampilkan
+      const dailyChallenges = shuffledData.slice(0, 4);
 
       // Simpan tanggal dan data tantangan untuk hari ini
       localStorage.setItem("lastChallengeDate", today);
