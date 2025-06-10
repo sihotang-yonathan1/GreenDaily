@@ -50,7 +50,7 @@ export const AirQualityCheck: React.FC = () => {
   return (
     <div className="p-4 bg-white rounded shadow flex flex-col w-full">
       <h2 className="text-xl font-bold mb-2">Cek Kualitas Udara</h2>
-      <div className="flex flex-row  md:flex-col gap-y-2 md:gap-x-4 mb-2">
+      <div className="flex flex-row flex-wrap gap-y-2 gap-x-4 mb-2">
         
         {/* Input Kota */}
         <div className="flex md:flex-col items-center md:items-baseline justify-normal md:justify-center gap-x-2 md:gap-y-2">
@@ -78,7 +78,7 @@ export const AirQualityCheck: React.FC = () => {
 
         {/* Input Negara */}
         <div className="flex md:flex-col items-center md:items-baseline justify-normal md:justify-center gap-x-2 md:gap-y-2">
-          <label htmlFor="countryInput" className="hidden md:block">Provinsi</label>
+          <label htmlFor="countryInput" className="hidden md:block">Negara</label>
           <input
             id="countryInput"
             className="border px-3 py-2 mr-1 placeholder:text-gray-500"
