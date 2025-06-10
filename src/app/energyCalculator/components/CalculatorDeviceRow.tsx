@@ -85,7 +85,7 @@ export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate
           type="number"
           id={`deviceNumber-${id}`}
           min={0}
-          className="border py-2 px-2 rounded-md focus:ring-blue-500 focus:border-blue-500"
+          className="border py-2 px-2 rounded-md focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-500"
           value={deviceCount}
           onChange={handleCountChange}
         />

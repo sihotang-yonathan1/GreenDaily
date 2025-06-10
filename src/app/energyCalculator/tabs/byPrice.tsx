@@ -85,7 +85,7 @@ export function CalculatorByPrice() {
             value={totalKWh} // Use totalKWh state
             min={0}
             onChange={(event) => setTotalKWh(event.target.value)} // Update totalKWh state
-            className="border p-2 md:px-2 md:py-3 rounded-md" // Added rounded-md
+            className="border p-2 md:px-2 md:py-3 rounded-md placeholder:text-gray-500" // Added rounded-md
             placeholder="Masukkan total KWh"
           />
         </div>
@@ -106,7 +106,7 @@ export function CalculatorByPrice() {
                 setSelectedVA(0); // Set to 'Input Manual' (va: 0)
               }
             }}
-            className="border p-2 md:px-2 md:py-3 rounded-md" // Added rounded-md
+            className="border p-2 md:px-2 md:py-3 rounded-md placeholder:text-gray-500" // Added rounded-md
             placeholder="Masukkan tarif listrik"
             // Make it read-only if a VA template is selected (not 'Input Manual')
             readOnly={selectedVA !== 0}
