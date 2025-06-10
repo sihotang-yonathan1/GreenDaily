@@ -57,7 +57,7 @@ export const AirQualityCheck: React.FC = () => {
           <label htmlFor="cityInput" className="hidden md:block">Kota</label>
           <input
             id="cityInput"
-            className="border p-1 mr-1"
+            className="border p-1 mr-1 placeholder:text-gray-500"
             placeholder="Kota"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -69,7 +69,7 @@ export const AirQualityCheck: React.FC = () => {
           <label htmlFor="stateInput" className="hidden md:block">Provinsi</label>
           <input
             id="stateInput"
-            className="border p-1 mr-1"
+            className="border p-1 mr-1 placeholder:text-gray-500"
             placeholder="Provinsi"
             value={state}
             onChange={(e) => setState(e.target.value)}
@@ -81,7 +81,7 @@ export const AirQualityCheck: React.FC = () => {
           <label htmlFor="countryInput" className="hidden md:block">Provinsi</label>
           <input
             id="countryInput"
-            className="border p-1 mr-1"
+            className="border p-1 mr-1 placeholder:text-gray-500"
             placeholder="Negara"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
