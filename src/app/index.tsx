@@ -34,7 +34,7 @@ export function DashboardLayout() {
               to="/"
               className={({ isActive }) =>
                 `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden rounded-md ${
-                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                  isActive ? 'bg-[#eff6ff] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
             >
@@ -44,7 +44,7 @@ export function DashboardLayout() {
               to="/air-quality"
               className={({ isActive }) =>
                 `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden rounded-md ${
-                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                  isActive ? 'bg-[#eff6ff] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
             >
@@ -52,12 +52,12 @@ export function DashboardLayout() {
             </NavLink>
           </div>
 
-          <div className="flex flex-wrap justify-end gap-x-1 gap-y-1">
+          <div className="flex flex-wrap justify-end gap-x-1 gap-y-2">
             <NavLink
               to="calculator"
               className={({ isActive }) =>
                 `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden rounded-md ${
-                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                  isActive ? 'bg-[#eff6ff] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
             >
@@ -68,7 +68,7 @@ export function DashboardLayout() {
               to="reminder"
               className={({ isActive }) =>
                 `hidden flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end ${
-                  isActive ? 'bg-[#a7e8ab] text-gray-900' : 'text-black'
+                  isActive ? 'bg-[#eff6ff] text-gray-900' : 'text-black'
                 }`
               }
             >
