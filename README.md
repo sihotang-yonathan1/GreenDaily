@@ -32,11 +32,11 @@ export default {
 Other ref:
 https://stackoverflow.com/questions/79562593/electron-vite-react-tailwindcss-v4
 
-Nama Anggota: 
-PRISKILA GABRIELA SUPIT	220211060109 
-RYAN CHRISTIAN FABIAN RATTU	220211060114
-TYRONE GILCHRIST PAAT	220211060122
-YONATHAN HOT GABE SIHOTANG	220211060127
+Nama Anggota:   
+PRISKILA GABRIELA SUPIT	220211060109   
+RYAN CHRISTIAN FABIAN RATTU	220211060114  
+TYRONE GILCHRIST PAAT	220211060122  
+YONATHAN HOT GABE SIHOTANG	220211060127  
 
 # GreenDaily
 
@@ -125,6 +125,12 @@ GreenDaily/
 ```
 
 ---
+
+## Icon
+Icon diambil dari flaticon
+- <a href="https://www.flaticon.com/free-icons/so2" title="so2 icons">So2 icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/ammonia" title="ammonia icons">Ammonia icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/so2" title="so2 icons">So2 icons created by Freepik - Flaticon</a>
 
 ## Kontributor
 
