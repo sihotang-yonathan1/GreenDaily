@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ReminderPage } from "./index";
 
 import styles from './style.module.css';
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ReminderData {
   id: string;
@@ -53,8 +54,8 @@ export function ReminderLayout(){
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.column}>
+    <Card className={styles.container}>
+      <CardContent className={styles.column}>
         <div className={styles.headerActions}>
           <button onClick={() => setActiveTab('settings')} className={styles.settingsButton}>
             <svg xmlns="http://www.w3.org/2000/svg" className={styles.settingsIcon} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,9 +132,9 @@ export function ReminderLayout(){
             </div>
           </>
         )}
-      </div>
+      </CardContent>
 
       {activeTab === 'reminder' && <ReminderPage reminders={activeReminders} />}
-    </div>
+    </Card>
   );
 }
