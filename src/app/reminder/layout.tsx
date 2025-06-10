@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { ReminderPage } from "./index";
-
+import React, { useState } from "react";
+import { ReminderPage } from "./index.tsx"; // Ensure this import is correct
 import styles from './style.module.css';
 
 interface ReminderData {
@@ -8,6 +7,14 @@ interface ReminderData {
   title: string;
   body: string;
   dateTime: string;
+}
+
+declare global {
+  interface Window {
+    electronAPI: {
+      sendReminder: (reminder: ReminderData) => void;
+    };
+  }
 }
 
 export function ReminderLayout(){
@@ -52,6 +59,12 @@ export function ReminderLayout(){
     }
   };
 
+  // Fungsi baru untuk menghapus reminder
+  const handleDeleteReminder = (idToDelete: string) => {
+    setActiveReminders(prevReminders => prevReminders.filter(reminder => reminder.id !== idToDelete));
+    setStatusMessage('Reminder berhasil dihapus.');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.column}>
@@ -62,6 +75,8 @@ export function ReminderLayout(){
             </svg>
           </button>
         </div>
+
+
 
         {activeTab === 'settings' ? (
           <div className={styles.settingsPanel}>
@@ -117,23 +132,27 @@ export function ReminderLayout(){
             </div>
           </div>
         ) : (
+          // Content for the 'reminder' tab
           <>
-            <div className={styles.searchContainer}>
-              <div className={styles.searchInput}>
-                <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
+            {/* Box untuk searchContainer DAN ReminderPage */}
+            <div className={styles.contentBox}>
+              <div className={styles.searchContainer}>
+                <div className={styles.searchInput}>
+                  <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
+                </div>
+                <button 
+                  onClick={() => setActiveTab('settings')}
+                  className={styles.setReminderButton}
+                >
+                  Atur Reminder
+                </button>
               </div>
-              <button 
-                onClick={() => setActiveTab('settings')}
-                className={styles.setReminderButton}
-              >
-                Atur Reminder
-              </button>
+              {/* Meneruskan handleDeleteReminder sebagai prop */}
+              <ReminderPage reminders={activeReminders} onDeleteReminder={handleDeleteReminder} /> 
             </div>
           </>
         )}
       </div>
-
-      {activeTab === 'reminder' && <ReminderPage reminders={activeReminders} />}
     </div>
   );
 }
