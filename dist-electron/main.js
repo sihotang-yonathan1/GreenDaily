@@ -16827,7 +16827,11 @@ let win;
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 function createWindow() {
   win = new BrowserWindow({
+<<<<<<< HEAD
     icon: path$2.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+=======
+    icon: path$2.join(process.env.VITE_PUBLIC, "green-daily-icon.png"),
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
     webPreferences: {
       preload: path$2.join(__dirname, "../dist-electron/preload.mjs"),
       nodeIntegration: false,
