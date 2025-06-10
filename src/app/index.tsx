@@ -29,13 +29,21 @@ export function DashboardLayout() {
           <div className="flex flex-wrap justify-end gap-x-1 gap-y-1">
             <NavLink
               to="/"
-              className="flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden"
+              className={({ isActive }) =>
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
+                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                }`
+              }
             >
               <span className="text-xs">DailyChallenge</span>
             </NavLink>
             <NavLink
               to="/air-quality"
-              className="flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden"
+              className={({ isActive }) =>
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
+                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                }`
+              }
             >
               <span className="text-xs">Cek Kualitas Udara</span>
             </NavLink>
@@ -44,14 +52,22 @@ export function DashboardLayout() {
           <div className="flex flex-wrap justify-end gap-x-1 gap-y-1">
             <NavLink
               to="calculator"
-              className="flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden"
+              className={({ isActive }) =>
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
+                  isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
+                }`
+              }
             >
               <span className="text-sm">Kalkulator</span>
             </NavLink>
           
             <NavLink
               to="reminder"
-              className="flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end hidden"
+              className={({ isActive }) =>
+                `hidden flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end ${
+                  isActive ? 'bg-[#a7e8ab] text-gray-900' : 'text-black'
+                }`
+              }
             >
               <span className="text-sm">Reminder</span>
             </NavLink>
