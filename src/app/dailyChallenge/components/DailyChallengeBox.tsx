@@ -25,6 +25,7 @@ export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: 
           id="check" 
           checked={isTempChecked} 
           onChange={() => handleLocalUpdate(!isTempChecked)} 
+          className="w-4 h-4"
         />
         <label htmlFor="check" className="capitalize">{title}</label>
       </div>
