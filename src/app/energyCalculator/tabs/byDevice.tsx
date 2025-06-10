@@ -76,7 +76,7 @@ export function CalculatorByDevice() {
         <input
           type="number"
           id="deviceCalculationResult"
-          className="border py-2 bg-gray-200 px-2 text-gray-700 rounded-md text-center"
+          className="border py-2 bg-gray-200 px-2 text-gray-700 rounded-md text-center placeholder:text-gray-500"
           value={calculateTotal()} // Panggil fungsi kalkulasi
           disabled
         />
