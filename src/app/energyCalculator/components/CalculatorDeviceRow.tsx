@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // Tipe untuk perangkat
 export type DeviceMapItemData = {
@@ -24,25 +24,6 @@ type CalculatorDeviceRowProps = DeviceMapItemData & {
 export function CalculatorDeviceRow({ id, name, count, price, onDelete, onUpdate }: CalculatorDeviceRowProps) {
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
-  // Code got comment due tnfinite render
-  const [currentDevicePrice, setCurrentDevicePrice ] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
-
-  // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
-  useEffect(() => {
-    const selectedDevice = deviceMapping[deviceName.toLowerCase()]; // Mencocokkan nama perangkat dengan mapping
-    if (selectedDevice) {
-      setCurrentDevicePrice(selectedDevice.price); // Update state harga lokal
-      onUpdate(id, "price", selectedDevice.price); // Juga update harga di parent
-    }
-  }, [deviceName, id]); // Tambahkan id dan onUpdate ke dependency array
-
-  // Effect untuk memastikan state harga lokal sinkron dengan prop price dari parent
-  // useEffect(() => {
-  //   if (price !== currentDevicePrice) {
-  //     setCurrentDevicePrice(price);
-  //   }
-  // }, [price, currentDevicePrice]);
-
 
   // Handle perubahan jumlah perangkat
   const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +37,8 @@ export function CalculatorDeviceRow({ id, name, count, price, onDelete, onUpdate
     const selectedName = event.target.value;
     setDeviceName(selectedName);
     // Harga akan diperbarui oleh useEffect pertama
+    const selectedData = deviceMapping[selectedName]
+    onUpdate(id, "price", selectedData.price)
   };
 
   return (
@@ -105,7 +88,7 @@ export function CalculatorDeviceRow({ id, name, count, price, onDelete, onUpdate
         <input
           type="number"
           id={`devicePrice-${id}`}
-          value={currentDevicePrice}
+          value={price}
           className="border py-2 px-2 rounded-md bg-gray-100 text-center text-sm"
           disabled
           readOnly
