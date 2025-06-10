@@ -54,7 +54,7 @@ export function CalculatorByPrice() {
   }, [totalKWh, currentTariff]);
 
   return (
-    <div className="flex flex-col h-full justify-center gap-y-8 p-6 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col h-full justify-center gap-y-2 p-4 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">Kalkulator Harga Listrik (Per KWh)</h2>
 
       {/* 3. Build UI for VA Group Selection */}
@@ -64,7 +64,7 @@ export function CalculatorByPrice() {
           id="vaSelection"
           value={selectedVA}
           onChange={handleVAChange}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm"
+          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm"
         >
           {vaTariffs.map(item => (
             <option key={item.label} value={item.va}>
