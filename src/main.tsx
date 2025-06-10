@@ -12,7 +12,7 @@ import { DashboardLayout } from './app/index.tsx';
 import { DailyChallengePage } from './app/dailyChallenge/index.tsx';
 
 // Reminder
-import { ReminderPage } from './app/reminder/index.tsx';
+import { ReminderLayout } from "./app/reminder/layout.tsx";
 
 // Calculator
 import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
@@ -23,13 +23,14 @@ import { CalculatorByDevice } from './app/energyCalculator/tabs/byDevice.tsx';
 import { AirQualityCheck } from './app/air-quality-check/index.tsx';
 
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
         <Route element={<DashboardLayout />} >
           <Route index element={<DailyChallengePage />}/>
-          <Route path='reminder' element={<ReminderPage reminders={[]}/>} />
+          <Route path='reminder' element={<ReminderLayout />} />
           <Route path='calculator' element={<CalculatorLayout/>}>
             <Route index element={<CalculatorByPrice />} />
             <Route path="byDevice" element={<CalculatorByDevice />} />
