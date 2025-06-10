@@ -1,6 +1,5 @@
 import styles from './style.module.css';
 
-
 interface ReminderData {
   id: string;
   title: string;
@@ -8,16 +7,17 @@ interface ReminderData {
   dateTime: string;
 }
 
-
 interface ReminderPageProps {
-  reminders: ReminderData[];
+  reminders: ReminderData[]; // Keep reminders prop for compatibility with ReminderLayout
 }
 
 export function ReminderPage({ reminders = [] }: ReminderPageProps){
   return (
-    <div className={styles.reminderList}>
+    // Menggunakan kelas dari style.module.css untuk styling utama
+    <div className={styles.reminderList}> 
       <p className={styles.reminderTitle}>Reminder Anda:</p>
       <ul className={styles.reminderItems}>
+        {/* Menampilkan daftar reminder jika ada, atau pesan default jika kosong */}
         {reminders.length > 0 ? (
           reminders.map(reminder => (
             <li key={reminder.id}>

@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { ReminderPage } from "./index";
-
+import React, { useState } from "react";
+import { ReminderPage } from "./index.tsx"; // Ensure this import is correct
 import styles from './style.module.css';
 
 interface ReminderData {
@@ -8,6 +7,14 @@ interface ReminderData {
   title: string;
   body: string;
   dateTime: string;
+}
+
+declare global {
+  interface Window {
+    electronAPI: {
+      sendReminder: (reminder: ReminderData) => void;
+    };
+  }
 }
 
 export function ReminderLayout(){
@@ -63,6 +70,8 @@ export function ReminderLayout(){
           </button>
         </div>
 
+        {/* Hello World area was here, now removed */}
+
         {activeTab === 'settings' ? (
           <div className={styles.settingsPanel}>
             <h2 className={styles.settingsTitle}>Pengaturan Reminder</h2>
@@ -117,7 +126,9 @@ export function ReminderLayout(){
             </div>
           </div>
         ) : (
+          // Content for the 'reminder' tab
           <>
+            {/* searchContainer now above ReminderPage */}
             <div className={styles.searchContainer}>
               <div className={styles.searchInput}>
                 <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
@@ -129,11 +140,10 @@ export function ReminderLayout(){
                 Atur Reminder
               </button>
             </div>
+            <ReminderPage reminders={activeReminders} />
           </>
         )}
       </div>
-
-      {activeTab === 'reminder' && <ReminderPage reminders={activeReminders} />}
     </div>
   );
 }

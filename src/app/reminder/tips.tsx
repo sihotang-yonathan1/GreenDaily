@@ -20,7 +20,6 @@ class TipsClass implements TipsBoxRowProps {
   }
 }
 
-
 const environmentalTips = [
   new TipsClass("Turn off lights when leaving a room to save energy"),
   new TipsClass("Use a reusable water bottle instead of plastic bottles"),
@@ -63,7 +62,8 @@ export function DailyTip() {
   }, []);
 
   return (
-    <div className="p-4 bg-green-50 border-t border-green-100">
+    // Added rounded-lg, shadow-sm, mt-auto for card-like appearance
+    <div className="p-4 bg-green-50 border-t border-green-100 rounded-lg shadow-sm mt-auto"> 
       <div className="max-w-4xl mx-auto">
         <h3 className="text-lg font-medium text-green-600">Daily Green Tip</h3>
         <p className="mt-2 font-medium text-green-800">{currentTip}</p>
