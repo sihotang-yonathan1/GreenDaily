@@ -11657,6 +11657,7 @@ var _eval = EvalError;
 var range = RangeError;
 var ref = ReferenceError;
 var syntax = SyntaxError;
+<<<<<<< HEAD
 var type;
 var hasRequiredType;
 function requireType() {
@@ -11665,6 +11666,9 @@ function requireType() {
   type = TypeError;
   return type;
 }
+=======
+var type = TypeError;
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
 var uri = URIError;
 var abs$1 = Math.abs;
 var floor$1 = Math.floor;
@@ -11924,7 +11928,11 @@ function requireCallBindApplyHelpers() {
   if (hasRequiredCallBindApplyHelpers) return callBindApplyHelpers;
   hasRequiredCallBindApplyHelpers = 1;
   var bind2 = requireFunctionBind();
+<<<<<<< HEAD
   var $TypeError2 = requireType();
+=======
+  var $TypeError2 = type;
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
   var $call2 = requireFunctionCall();
   var $actualApply = requireActualApply();
   callBindApplyHelpers = function callBindBasic(args) {
@@ -12004,7 +12012,11 @@ var $EvalError = _eval;
 var $RangeError = range;
 var $ReferenceError = ref;
 var $SyntaxError = syntax;
+<<<<<<< HEAD
 var $TypeError$1 = requireType();
+=======
+var $TypeError$1 = type;
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
 var $URIError = uri;
 var abs = abs$1;
 var floor = floor$1;
@@ -12335,7 +12347,11 @@ var GetIntrinsic2 = getIntrinsic;
 var $defineProperty = GetIntrinsic2("%Object.defineProperty%", true);
 var hasToStringTag = requireShams()();
 var hasOwn = requireHasown();
+<<<<<<< HEAD
 var $TypeError = requireType();
+=======
+var $TypeError = type;
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
 var toStringTag = hasToStringTag ? Symbol.toStringTag : null;
 var esSetTostringtag = function setToStringTag(object, value) {
   var overrideIfSet = arguments.length > 2 && !!arguments[2] && arguments[2].force;
@@ -16834,7 +16850,11 @@ let win;
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 function createWindow() {
   win = new BrowserWindow({
+<<<<<<< HEAD
     icon: path$2.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+=======
+    icon: path$2.join(process.env.VITE_PUBLIC, "green-daily-icon.png"),
+>>>>>>> 6c9f201ca0f77e239533d021f5fb5d84668a2bde
     webPreferences: {
       preload: path$2.join(__dirname, "../dist-electron/preload.mjs"),
       nodeIntegration: false,
