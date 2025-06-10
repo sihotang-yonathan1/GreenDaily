@@ -50,8 +50,8 @@ export function DashboardLayout() {
             </NavLink>
           
             <NavLink
-              to="/"
-              className="flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end"
+              to="reminder"
+              className="flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end hidden"
             >
               <span className="text-sm">Reminder</span>
             </NavLink>
