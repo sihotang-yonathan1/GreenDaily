@@ -139,6 +139,7 @@
   border: 1px solid #d1d5db;
   border-radius: 1rem; /* rounded-2xl */
   width: 100%;
+  visibility: hidden;
 }
 
 .searchInputField {
