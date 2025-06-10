@@ -50,14 +50,14 @@ export const AirQualityCheck: React.FC = () => {
   return (
     <div className="p-4 bg-white rounded shadow flex flex-col w-full">
       <h2 className="text-xl font-bold mb-2">Cek Kualitas Udara</h2>
-      <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-4 mb-2">
+      <div className="flex flex-row flex-wrap gap-y-2 gap-x-4 mb-2">
         
         {/* Input Kota */}
         <div className="flex md:flex-col items-center md:items-baseline justify-normal md:justify-center gap-x-2 md:gap-y-2">
           <label htmlFor="cityInput" className="hidden md:block">Kota</label>
           <input
             id="cityInput"
-            className="border p-1 mr-1"
+            className="border px-3 py-2 mr-1 placeholder:text-gray-500"
             placeholder="Kota"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -69,7 +69,7 @@ export const AirQualityCheck: React.FC = () => {
           <label htmlFor="stateInput" className="hidden md:block">Provinsi</label>
           <input
             id="stateInput"
-            className="border p-1 mr-1"
+            className="border px-3 py-2 placeholder:text-gray-500"
             placeholder="Provinsi"
             value={state}
             onChange={(e) => setState(e.target.value)}
@@ -78,10 +78,10 @@ export const AirQualityCheck: React.FC = () => {
 
         {/* Input Negara */}
         <div className="flex md:flex-col items-center md:items-baseline justify-normal md:justify-center gap-x-2 md:gap-y-2">
-          <label htmlFor="countryInput" className="hidden md:block">Provinsi</label>
+          <label htmlFor="countryInput" className="hidden md:block">Negara</label>
           <input
             id="countryInput"
-            className="border p-1 mr-1"
+            className="border px-3 py-2 mr-1 placeholder:text-gray-500"
             placeholder="Negara"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
