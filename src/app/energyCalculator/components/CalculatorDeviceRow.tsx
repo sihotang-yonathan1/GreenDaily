@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // Tipe untuk perangkat
 export type DeviceMapItemData = {
@@ -21,10 +21,11 @@ type CalculatorDeviceRowProps = DeviceMapItemData & {
   onUpdate: (id: string, field: keyof DeviceMapItemData, value: number) => void;
 };
 
-export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate }: CalculatorDeviceRowProps) {
+export function CalculatorDeviceRow({ id, name, count, price, onDelete, onUpdate }: CalculatorDeviceRowProps) {
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
-  const [currentDevicePrice, setCurrentDevicePrice] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
+  // Code got comment due tnfinite render
+  const [currentDevicePrice, setCurrentDevicePrice ] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
 
   // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
   useEffect(() => {
@@ -33,14 +34,14 @@ export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate
       setCurrentDevicePrice(selectedDevice.price); // Update state harga lokal
       onUpdate(id, "price", selectedDevice.price); // Juga update harga di parent
     }
-  }, [deviceName, id, onUpdate]); // Tambahkan id dan onUpdate ke dependency array
+  }, [deviceName, id]); // Tambahkan id dan onUpdate ke dependency array
 
   // Effect untuk memastikan state harga lokal sinkron dengan prop price dari parent
-  useEffect(() => {
-    if (price !== currentDevicePrice) {
-      setCurrentDevicePrice(price);
-    }
-  }, [price, currentDevicePrice]);
+  // useEffect(() => {
+  //   if (price !== currentDevicePrice) {
+  //     setCurrentDevicePrice(price);
+  //   }
+  // }, [price, currentDevicePrice]);
 
 
   // Handle perubahan jumlah perangkat
