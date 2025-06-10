@@ -17,7 +17,7 @@ export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: 
   }
 
   return (
-    <div className="flex flex-row border p-2 gap-x-2 justify-between">
+    <div className="flex flex-row border px-2 py-3 gap-x-2 justify-between rounded-lg">
       <div className="flex flex-row items-center gap-x-2">
         <input 
           type="checkbox" 
