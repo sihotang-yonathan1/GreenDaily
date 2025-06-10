@@ -30,8 +30,8 @@ export function DailyChallengeBox({id, title, isChecked, points, handleUpdate}: 
         <label htmlFor="check" className="capitalize">{title}</label>
       </div>
 
-      <div className="flex flex-row justify-end text-sm">
-        <p>Points: {points}</p>
+      <div className="flex flex-row justify-end items-start">
+        <p className="text-xs lg:text-sm">Points: {points}</p>
       </div>
     </div>
   )
