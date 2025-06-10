@@ -30,7 +30,7 @@ export function DashboardLayout() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end ${
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
                   isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
@@ -40,7 +40,7 @@ export function DashboardLayout() {
             <NavLink
               to="/air-quality"
               className={({ isActive }) =>
-                `flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end ${
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
                   isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
@@ -53,7 +53,7 @@ export function DashboardLayout() {
             <NavLink
               to="calculator"
               className={({ isActive }) =>
-                `flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end ${
+                `flex flex-col border p-2 w-full sm:w-24 h-14 text-wrap justify-end overflow-hidden ${
                   isActive ? 'bg-[#a7e8ab] text-gray-900 font-semibold' : 'text-black'
                 }`
               }
