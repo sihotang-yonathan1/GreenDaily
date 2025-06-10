@@ -1,6 +1,1 @@
-"use strict";
-const electron = require("electron");
-electron.contextBridge.exposeInMainWorld("electronAPI", {
-  sendReminder: (reminder) => electron.ipcRenderer.send("show-reminder-notification", reminder),
-  getAirQuality: (city, state, country) => electron.ipcRenderer.invoke("get-air-quality", city, state, country)
-});
+"use strict";const i=require("electron");i.contextBridge.exposeInMainWorld("electronAPI",{sendReminder:e=>i.ipcRenderer.send("show-reminder-notification",e),getAirQuality:(e,r,n)=>i.ipcRenderer.invoke("get-air-quality",e,r,n)});

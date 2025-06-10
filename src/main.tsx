@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { HashRouter, Route, Routes } from "react-router";
 
 
 import './global.css'
@@ -16,8 +16,8 @@ import { ReminderPage } from './app/reminder/index.tsx';
 
 // Calculator
 import { CalculatorLayout } from './app/energyCalculator/layout.tsx';
-import { CalculatorByPrice } from './app/energyCalculator/byPrice.tsx';
-import { CalculatorByDevice } from './app/energyCalculator/byDevice.tsx';
+import { CalculatorByPrice } from './app/energyCalculator/tabs/byPrice.tsx';
+import { CalculatorByDevice } from './app/energyCalculator/tabs/byDevice.tsx';
 
 // AirQualityCheck
 import { AirQualityCheck } from './app/air-quality-check/index.tsx';
@@ -25,11 +25,11 @@ import { AirQualityCheck } from './app/air-quality-check/index.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<DashboardLayout />} >
           <Route index element={<DailyChallengePage />}/>
-          <Route path='reminder' element={<ReminderPage />} />
+          <Route path='reminder' element={<ReminderPage reminders={[]}/>} />
           <Route path='calculator' element={<CalculatorLayout/>}>
             <Route index element={<CalculatorByPrice />} />
             <Route path="byDevice" element={<CalculatorByDevice />} />
@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path='air-quality' element={<AirQualityCheck/>} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 
