@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+// Icon
+import AmmoniaIcon from "/src/icon/ammonia-icon.png";
+import SO2Icon from "/src/icon/so2-icon.png";
+import OzoneIcon from "/src/icon/o3-icon.png";
+
 type AirQualityAPISuccessResult = {
   status: "success",
   location: { 
@@ -119,18 +124,79 @@ export const AirQualityCheck: React.FC = () => {
               </div>
               <div className="mb-2">
                 <b>Parameter Udara (OpenWeather):</b>
-                <table className="mt-2 border bg-gray-50 text-sm rounded">
-                  <tbody>
-                    <tr><td className="border px-2 py-1">CO</td><td className="border px-2 py-1">{result.openweather.list[0].components.co} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">NO</td><td className="border px-2 py-1">{result.openweather.list[0].components.no} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">NO₂</td><td className="border px-2 py-1">{result.openweather.list[0].components.no2} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">O₃</td><td className="border px-2 py-1">{result.openweather.list[0].components.o3} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">SO₂</td><td className="border px-2 py-1">{result.openweather.list[0].components.so2} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">PM2.5</td><td className="border px-2 py-1">{result.openweather.list[0].components.pm2_5} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">PM10</td><td className="border px-2 py-1">{result.openweather.list[0].components.pm10} μg/m³</td></tr>
-                    <tr><td className="border px-2 py-1">NH₃</td><td className="border px-2 py-1">{result.openweather.list[0].components.nh3} μg/m³</td></tr>
-                  </tbody>
-                </table>
+
+                <div className="grid grid-cols-3 gap-x-2 gap-y-2 px-2 py-3 justify-center items-center">
+                  <div className="grid items-center justify-center">
+                    <div className="flex w-full items-center justify-center">
+                      <img src={AmmoniaIcon} alt="amonia" width={48} height={48} />
+                    </div>
+                    <p className="text-sm italic">{result.openweather.list[0].components.nh3} μg/m³</p>
+                  </div>
+
+                  <div className="grid items-center justify-center">
+                    <div className="flex w-full items-center justify-center">
+                      <img src={SO2Icon} alt="so2" width={48} height={48} />
+                    </div>
+                    <p className="text-sm italic">{result.openweather.list[0].components.so2} μg/m³</p>
+                  </div>
+
+                  <div className="grid items-center justify-center">
+                    <div className="flex w-full items-center justify-center">
+                      <img src={OzoneIcon} alt="o3" width={48} height={48} />
+                    </div>
+                    <p className="text-sm italic">{result.openweather.list[0].components.so2} μg/m³</p>
+                  </div>
+
+                </div>
+                
+                <details className="my-2">
+                  <summary>Tabel Hasil</summary>
+
+                  <table className="mt-2 border bg-gray-50 text-sm rounded">
+                    <thead>
+                      <tr className="font-semibold">
+                        <th className="border px-2 py-1 font-bold">Molekul</th>
+                        <th className="border px-2 py-1 font-bold">Nilai</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">CO</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.co} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">NO</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.no} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">NO₂</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.no2} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">O₃</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.o3} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">SO₂</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.so2} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">PM2.5</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.pm2_5} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">PM10</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.pm10} μg/m³</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-1 font-semibold">NH₃</td>
+                        <td className="border px-2 py-1">{result.openweather.list[0].components.nh3} μg/m³</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </details>
+
+                
               </div>
             </div>
           ) : (
