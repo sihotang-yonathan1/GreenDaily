@@ -59,6 +59,12 @@ export function ReminderLayout(){
     }
   };
 
+  // Fungsi baru untuk menghapus reminder
+  const handleDeleteReminder = (idToDelete: string) => {
+    setActiveReminders(prevReminders => prevReminders.filter(reminder => reminder.id !== idToDelete));
+    setStatusMessage('Reminder berhasil dihapus.');
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.column}>
@@ -70,7 +76,7 @@ export function ReminderLayout(){
           </button>
         </div>
 
-        {/* Hello World area was here, now removed */}
+
 
         {activeTab === 'settings' ? (
           <div className={styles.settingsPanel}>
@@ -128,19 +134,22 @@ export function ReminderLayout(){
         ) : (
           // Content for the 'reminder' tab
           <>
-            {/* searchContainer now above ReminderPage */}
-            <div className={styles.searchContainer}>
-              <div className={styles.searchInput}>
-                <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
+            {/* Box untuk searchContainer DAN ReminderPage */}
+            <div className={styles.contentBox}>
+              <div className={styles.searchContainer}>
+                <div className={styles.searchInput}>
+                  <input type="text" className={styles.searchInputField} placeholder="Cari Lokasi"/>
+                </div>
+                <button 
+                  onClick={() => setActiveTab('settings')}
+                  className={styles.setReminderButton}
+                >
+                  Atur Reminder
+                </button>
               </div>
-              <button 
-                onClick={() => setActiveTab('settings')}
-                className={styles.setReminderButton}
-              >
-                Atur Reminder
-              </button>
+              {/* Meneruskan handleDeleteReminder sebagai prop */}
+              <ReminderPage reminders={activeReminders} onDeleteReminder={handleDeleteReminder} /> 
             </div>
-            <ReminderPage reminders={activeReminders} />
           </>
         )}
       </div>

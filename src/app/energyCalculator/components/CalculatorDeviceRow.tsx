@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Tipe untuk perangkat
 export type DeviceMapItemData = {
@@ -24,15 +24,24 @@ type CalculatorDeviceRowProps = DeviceMapItemData & {
 export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate }: CalculatorDeviceRowProps) {
   const [deviceName, setDeviceName] = useState<string>(name);
   const [deviceCount, setDeviceCount] = useState<number>(count);
-  const [,setDevicePrice] = useState<number>(price);
+  const [currentDevicePrice, setCurrentDevicePrice] = useState<number>(price); // Menggunakan state untuk harga aktual yang ditampilkan
 
   // Effect untuk memperbarui harga perangkat ketika nama perangkat berubah
   useEffect(() => {
     const selectedDevice = deviceMapping[deviceName.toLowerCase()]; // Mencocokkan nama perangkat dengan mapping
     if (selectedDevice) {
-      setDevicePrice(selectedDevice.price);
+      setCurrentDevicePrice(selectedDevice.price); // Update state harga lokal
+      onUpdate(id, "price", selectedDevice.price); // Juga update harga di parent
     }
-  }, [deviceName]);
+  }, [deviceName, id, onUpdate]); // Tambahkan id dan onUpdate ke dependency array
+
+  // Effect untuk memastikan state harga lokal sinkron dengan prop price dari parent
+  useEffect(() => {
+    if (price !== currentDevicePrice) {
+      setCurrentDevicePrice(price);
+    }
+  }, [price, currentDevicePrice]);
+
 
   // Handle perubahan jumlah perangkat
   const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +54,7 @@ export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate
   const handleDeviceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedName = event.target.value;
     setDeviceName(selectedName);
-    const selectedDevice = deviceMapping[selectedName.toLowerCase()];
-    if (selectedDevice) {
-      setDevicePrice(selectedDevice.price); // Update harga perangkat
-      onUpdate(id, "price", selectedDevice.price); // Update harga di parent
-    }
+    // Harga akan diperbarui oleh useEffect pertama
   };
 
   return (
@@ -91,13 +96,32 @@ export function CalculatorDeviceRow({ id, name, price, count, onDelete, onUpdate
         />
       </div>
 
-      {/* Tombol Hapus */}
+      {/* Menampilkan Harga Perangkat (read-only) */}
+      <div className="flex flex-col w-1/4 gap-y-1">
+        <label htmlFor={`devicePrice-${id}`} className="font-semibold text-sm">
+          Harga
+        </label>
+        <input
+          type="number"
+          id={`devicePrice-${id}`}
+          value={currentDevicePrice}
+          className="border py-2 px-2 rounded-md bg-gray-100 text-center text-sm"
+          disabled
+          readOnly
+        />
+      </div>
+
+      {/* Tombol Hapus dengan SVG Icon */}
       <div className="flex items-end h-full pt-5">
         <button
           onClick={() => onDelete(id)}
-          className="py-2 px-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200"
+          aria-label={`Delete ${deviceName}`}
         >
-          X
+          {/* Ikon tempat sampah SVG */}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
         </button>
       </div>
     </div>
