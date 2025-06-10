@@ -2,9 +2,9 @@ import { NavLink, Outlet } from "react-router"
 
 export function CalculatorLayout(){
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full gap-y-2">
       {/* Tab */}
-      <div className="flex flex-row w-full py-2 gap-x-2 justify-between px-[20%]">
+      <div className="flex flex-row w-full py-2 gap-x-2 justify-between px-[20%] bg-green-100 rounded-md">
         <NavLink 
           to="/calculator"
           end
